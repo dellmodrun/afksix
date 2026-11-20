@@ -1,0 +1,11 @@
+{
+  "source": "https://blockmind.fun",
+  "capturedAt": "2026-11-16T12:48:33.984Z",
+  "downloaded": 1746,
+  "failed": [
+    {
+      "url": "/sitemap.xml",
+      "error": "HTTP 404"
+    }
+  ]
+}
