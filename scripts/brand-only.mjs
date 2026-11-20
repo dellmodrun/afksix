@@ -41,8 +41,7 @@ for (const [source, destination] of [
   ['favicon.png', 'favicon.png'], ['favicon.svg', 'favicon.svg'],
   ['icon-192.png', 'icons/icon-192.png'], ['icon-512.png', 'icons/icon-512.png'],
   ['apple-touch-icon.png', 'icons/apple-touch-icon.png'],
-  ['hero-wide.webp', 'art/hero/hero-wide.webp'], ['hero-phone.webp', 'art/hero/hero-phone.webp'],
-  ['standin.jpg', 'art/hero/standin.jpg'], ['banner.png', 'img/banner.png']
+  ['banner.png', 'img/banner.png']
 ]) fs.copyFileSync(path.join(assets, source), path.join(project, destination));
 
 for (const file of ['api/brand', 'api/state']) {
