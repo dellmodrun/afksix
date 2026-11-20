@@ -6,8 +6,8 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const blockmindSource = path.join(root, 'public');
 const woodooSource = path.join(root, 'woodoo');
 const output = path.join(root, '_site');
-const blockmindOutput = path.join(output, 'blockmind');
-const base = '/afksix/blockmind';
+const blockmindOutput = path.join(output, 'project');
+const base = '/afksix/project';
 const localPath = /(?<![A-Za-z0-9/:])\/(api|art|assets|icons|img|ledger|proof|rec|run|site|skills|vendor|favicon\.ico|favicon\.svg|site\.webmanifest|robots\.txt)(?=[/?#"'`<>)}]|$)/g;
 const textExtensions = new Set(['.html', '.js', '.css', '.json', '.svg', '.webmanifest', '.txt']);
 
@@ -17,7 +17,7 @@ fs.cpSync(blockmindSource, blockmindOutput, { recursive: true });
 
 const entry = path.join(output, 'index.html');
 const woodooEntry = fs.readFileSync(entry, 'utf8');
-const routedEntry = woodooEntry.replaceAll('href="home/index.html"', 'href="blockmind/"');
+const routedEntry = woodooEntry.replaceAll('href="home/index.html"', 'href="project/"');
 if (routedEntry === woodooEntry || !routedEntry.includes('class="enterbtn"')) throw new Error('Woodoo Enter link was not found');
 fs.writeFileSync(entry, routedEntry);
 
@@ -49,5 +49,8 @@ function visit(directory) {
   }
 }
 visit(blockmindOutput);
+await import('./rebrand-pages.mjs');
+fs.mkdirSync(path.join(output, 'blockmind'), { recursive: true });
+fs.writeFileSync(path.join(output, 'blockmind', 'index.html'), '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/afksix/project/"><a href="/afksix/project/">Open afksix</a>');
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
-console.log(`Prepared Woodoo entry at /afksix/ and BlockMind at ${base}/`);
+console.log(`Prepared afksix entry at /afksix/ and project at ${base}/`);
