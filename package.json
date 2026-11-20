@@ -1,9 +1,9 @@
 {
-  "name": "blockmind-local",
+  "name": "afksix",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Local offline deployment of the public BlockMind frontend",
+  "description": "Local offline deployment of the public afksix frontend",
   "scripts": {
     "start": "node server.mjs",
     "mirror": "node tools/mirror.mjs",

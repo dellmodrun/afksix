@@ -49,5 +49,6 @@ function visit(directory) {
   }
 }
 visit(blockmindOutput);
+await import('./brand-only.mjs');
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
-console.log(`Prepared Woodoo entry at /afksix/ and BlockMind at ${base}/`);
+console.log(`Prepared afksix branding at /afksix/ and ${base}/`);
