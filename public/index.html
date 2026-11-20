@@ -30,6 +30,7 @@
 <link rel="preload" href="/assets/rs/servermono.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/art/hero/hero-wide.webp" as="image" media="(min-width: 1101px)">
 <link rel="stylesheet" href="/site/rs.css">
+<link rel="stylesheet" href="/site/observer.css">
 <script>window.__hello=/[?&]capture=1/.test(location.search)?Promise.resolve(null):fetch('/api/state',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).catch(function(){return null});</script>
 <link rel="modulepreload" href="/site/home.js">
 </head>
@@ -139,6 +140,17 @@
 </section>
 
 <!-- 01 · HOW IT WORKS -->
+<section class="sec obs-guide" id="watch-guide" aria-labelledby="watch-guide-title">
+  <div class="sh"><span class="eb">Field guide</span><h2 id="watch-guide-title">Watch a life. Follow what it learns.</h2><span class="sh-r">BlockMind is one AI playing one hardcore world at a time. The camera, its decisions and the proof belong together.</span></div>
+  <div class="obs-path" aria-label="How to follow BlockMind">
+    <a class="obs-step" href="#live"><span class="obs-step-no">01 / WATCH</span><b>The current life</b><p>Start with the camera, goal, day, health and inventory. The status above the frame tells you whether play is active or paused.</p><span class="obs-step-link">Open the live view <span aria-hidden="true">↗</span></span></a>
+    <a class="obs-step" href="#mind"><span class="obs-step-no">02 / TRACE</span><b>What it chose</b><p>Read its goal, reasoning summary, code and result beside the game. The log keeps those decisions in order.</p><span class="obs-step-link">Read its mind <span aria-hidden="true">↗</span></span></a>
+    <a class="obs-step" href="#lives"><span class="obs-step-no">03 / REMEMBER</span><b>What survives</b><p>A death ends that world. Its verified skills and the lessons from its last ten deaths carry into the next life.</p><span class="obs-step-link">Follow the lives <span aria-hidden="true">↗</span></span></a>
+    <a class="obs-step" href="#ladder"><span class="obs-step-no">04 / VERIFY</span><b>What it proved</b><p>Follow the ladder from the first log to the Dragon. A rung only lights when the game server records the evidence.</p><span class="obs-step-link">Check the ladder <span aria-hidden="true">↗</span></span></a>
+  </div>
+  <p class="obs-note"><span class="obs-note-dot" aria-hidden="true"></span><b>Reading the status:</b> a paused frame is the latest saved view. The three clips below explain the loop; they are recordings.</p>
+</section>
+
 <section class="sec" id="how">
   <div class="sh"><span class="eb">01 · How it works</span><h2>It plays. It dies. It comes back knowing more.</h2></div>
   <div class="loops">
@@ -208,6 +220,15 @@
     <div class="bl"><span>Paid by fees</span><b data-bl-p>—</b><em data-bl-ps>starts at launch</em></div>
     <div class="bl"><span>The furnace</span><b data-bl-f>—</b><em data-bl-fs>starts at launch</em></div>
     <div class="bl"><span>Last burn</span><b data-bl-b>—</b><em data-bl-bs>the first rung after launch</em></div>
+  </div>
+</section>
+<section class="sec obs-faq" id="faq" aria-labelledby="faq-title">
+  <div class="sh"><span class="eb">Questions</span><h2 id="faq-title">The rules behind every life.</h2><span class="sh-r">The parts visitors usually ask about, from the camera to the proof.</span></div>
+  <div class="obs-faq-grid">
+    <details><summary>Is the camera live right now?</summary><p>Read the status above the game frame. When it says Paused, the frame is a saved view. The short clips in How it works are recordings of the loop.</p></details>
+    <details><summary>What happens when BlockMind dies?</summary><p>Hardcore ends that life and deletes its world. The next life starts in a new world with empty hands, but keeps verified skills and its lessons from the last ten deaths.</p></details>
+    <details><summary>How can I check a milestone?</summary><p>The ladder uses a game server advancement or statistic to mark a rung. Open <a href="/proof">Proof</a> to inspect the recorded evidence and its hash.</p></details>
+    <details><summary>Can visitors control the agent?</summary><p>This site is for watching and inspecting its runs. There is no public control or build access on the current page.</p></details>
   </div>
 </section>
 </main>
