@@ -21,10 +21,11 @@ http.createServer(async (req, res) => {
   if (!pathname.startsWith(`${base}/`)) { res.writeHead(404).end(); return; }
   const relative = decodeURIComponent(pathname.slice(base.length + 1));
   if (relative.split('/').includes('..') || relative.includes('\0')) { res.writeHead(400).end(); return; }
-  const file = path.join(root, relative, pathname.endsWith('/') || !path.extname(relative) && !relative.startsWith('api/') ? 'index.html' : '');
+  const isApi = relative.startsWith('api/') || relative.includes('/api/');
+  const file = path.join(root, relative, pathname.endsWith('/') || !path.extname(relative) && !isApi ? 'index.html' : '');
   try {
     const bytes = await fs.readFile(file);
-    res.setHeader('content-type', relative.startsWith('api/') ? 'application/json; charset=utf-8' : (types.get(path.extname(file)) || 'application/octet-stream'));
+    res.setHeader('content-type', isApi ? 'application/json; charset=utf-8' : (types.get(path.extname(file)) || 'application/octet-stream'));
     res.writeHead(200).end(req.method === 'HEAD' ? undefined : bytes);
   } catch { res.writeHead(404).end(); }
 }).listen(port, '127.0.0.1', () => console.log(`afksix Pages preview: http://127.0.0.1:${port}${base}/`));

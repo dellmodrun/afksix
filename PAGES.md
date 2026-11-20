@@ -1,7 +1,7 @@
 # GitHub Pages copy
 
-This repository copies the public BlockMind frontend snapshot from the desktop source into the independent `afksix` repository. The source desktop folder is not part of this Git history.
+This repository copies the public BlockMind frontend snapshot and the Woodoo frontend into the independent `afksix` repository. The desktop source folders are not part of this Git history.
 
-`npm run build:pages` copies `public/` to `_site/` and prefixes local asset and route URLs with `/afksix/`. `npm run check:pages` checks the four captured pages and key assets. Pushing `main` deploys the site at <https://dellmodrun.github.io/afksix/>.
+`npm run build:pages` places the Woodoo entry at `_site/` and BlockMind at `_site/blockmind/`, with its assets and routes prefixed by `/afksix/blockmind/`. The Woodoo Enter button opens BlockMind. `npm run check:pages` checks the entry, the four BlockMind pages, and key assets. Pushing `main` deploys the site at <https://dellmodrun.github.io/afksix/>.
 
 The site is a static snapshot. Recorded videos, images, public API responses, and the four pages are included; live game, WebSocket, and backend changes from the original site are not reproduced by GitHub Pages.
