@@ -1,9 +1,9 @@
 {
-  "name": "afksix",
+  "name": "blockmind-local",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "afksix entry and AI Minecraft project frontend",
+  "description": "Local offline deployment of the public BlockMind frontend",
   "scripts": {
     "start": "node server.mjs",
     "mirror": "node tools/mirror.mjs",
