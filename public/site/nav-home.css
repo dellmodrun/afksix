@@ -1,0 +1,13 @@
+@media (max-width:640px){
+  .hdr-r{min-width:0;gap:6px}
+  .brand{min-width:0}
+  #t-ca{min-width:0;max-width:78px}
+  #t-ca .hca{max-width:100%}
+  #t-ca-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #t-ca-pump{min-width:48px;padding:0 10px;justify-content:center;font-size:0;white-space:nowrap}
+  #t-ca-pump::after{content:"Buy";font:800 italic 15px/1 var(--f-d)}
+  .hx,.burger{flex:0 0 34px}
+}
+@media (max-width:360px){
+  #t-ca{display:none!important}
+}

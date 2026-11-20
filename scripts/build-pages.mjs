@@ -28,11 +28,23 @@ function visit(directory) {
     const relative = path.relative(blockmindOutput, target).replaceAll('\\', '/');
     if (!textExtensions.has(path.extname(entry.name)) && !relative.startsWith('api/')) continue;
     const before = fs.readFileSync(target, 'utf8');
-    const after = before
+    let after = before
       .replace(localPath, `${base}/$1`)
       .replace(/(["'`])\/\1/g, `$1${base}/$1`)
       .replaceAll('https://blockmind.fun/img/banner.png?v=1', 'https://dellmodrun.github.io/afksix/blockmind/img/banner.png?v=1')
       .replaceAll('https://blockmind.fun/', 'https://dellmodrun.github.io/afksix/blockmind/');
+    if (entry.name.endsWith('.html')) {
+      const navs = [
+        ['<nav class="nav" aria-label="Main">', '<nav class="nav" aria-label="Main"><a href="/afksix/">Home</a>'],
+        ['<div class="sheet" id="sheet">', '<div class="sheet" id="sheet"><a href="/afksix/">Home<span aria-hidden="true">↗</span></a>'],
+        ['<nav class="ft-nav" aria-label="Footer">', '<nav class="ft-nav" aria-label="Footer"><a href="/afksix/">Home</a>']
+      ];
+      for (const [anchor, replacement] of navs) {
+        if (!after.includes(anchor)) throw new Error(`Missing BlockMind navigation in ${relative}`);
+        after = after.replace(anchor, replacement);
+      }
+      after = after.replace('</head>', '<link rel="stylesheet" href="/afksix/blockmind/site/nav-home.css"></head>');
+    }
     if (after !== before) fs.writeFileSync(target, after);
   }
 }
