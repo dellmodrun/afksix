@@ -52,6 +52,46 @@ const social = current.match(/<p style="line-height:1\.3;">([\s\S]*?)<\/p>/)?.[1
 const badges = current.match(/<img src="badges\/sideadd\.gif"[\s\S]*?(?=\s*<\/center>)/)?.[0]?.replace(/<br\s*\/?>/gi, '');
 const rainbowScript = current.match(/<script>[\s\S]*?<\/script>/)?.[0];
 if (!social || !badges || !rainbowScript) throw new Error('Existing social links, badges, or Enter animation are missing');
+const caScript = `<script>
+(() => {
+  const endpoint = 'https://raw.githubusercontent.com/dellmodrun/afksix/ca-live/ca.json';
+  const value = document.getElementById('entry-ca-value');
+  const copy = document.getElementById('entry-ca-copy');
+  let activeCa = '';
+  let loading = false;
+  async function refreshCa() {
+    if (loading || document.hidden) return;
+    loading = true;
+    try {
+      const response = await fetch(endpoint + '?v=' + Date.now(), { cache: 'no-store' });
+      if (!response.ok) throw new Error('CA feed unavailable');
+      const data = await response.json();
+      const next = String(data.ca || '').trim();
+      if (next.toLowerCase() !== 'tba' && !/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(next)) throw new Error('Invalid CA');
+      activeCa = next.toLowerCase() === 'tba' ? '' : next;
+      value.textContent = activeCa || 'tba';
+      copy.hidden = !activeCa;
+    } catch (error) {
+      console.warn('Could not refresh afksix CA', error);
+    } finally {
+      loading = false;
+    }
+  }
+  copy.addEventListener('click', async () => {
+    if (!activeCa) return;
+    try {
+      await navigator.clipboard.writeText(activeCa);
+      copy.textContent = 'copied';
+      setTimeout(() => { copy.textContent = 'copy'; }, 1300);
+    } catch (error) {
+      console.warn('Could not copy CA', error);
+    }
+  });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshCa(); });
+  refreshCa();
+  setInterval(refreshCa, 2000);
+})();
+</script>`;
 
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -63,6 +103,7 @@ body{margin:0;background:#000;color:#f6f3f6;font-family:Arial,"Microsoft YaHei",
 .story{max-width:720px;min-width:0}.wanted-level{display:flex;gap:5px;align-items:center;margin:0 0 20px;height:20px;font:20px/1 Arial,sans-serif;letter-spacing:0}.wanted-star{color:#4b4020}
 ${wantedAnimation}
 @media(prefers-reduced-motion:reduce){.wanted-star{animation:none!important;color:#ffd443!important;text-shadow:none!important}}
+.entry-ca{display:flex;align-items:center;gap:12px;width:min(100%,640px);min-height:44px;margin:-3px 0 27px;padding:10px 12px;border:1px solid #5e414a;background:#120d12;box-shadow:inset 3px 0 #ff92a9;font:13px/1.4 Consolas,monospace}.entry-ca-label{flex:none;color:#ffd28b;font-weight:700;letter-spacing:.12em}.entry-ca-value{min-width:0;overflow-wrap:anywhere;color:#f7eaf0}.entry-ca-copy{margin-left:auto;padding:4px 8px;border:1px solid #886d76;background:#22171d;color:#ffe0a6;font:11px/1 Consolas,monospace;cursor:pointer}.entry-ca-copy[hidden]{display:none}
 h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;margin:0 0 30px;white-space:nowrap}
 .story-en{font-size:17px;line-height:1.85;color:#f2ebef;margin:0 0 1.15em;max-width:68ch}
 .story strong{font-weight:700;color:#f2ebef}.miami-highlight{font-weight:700;font-style:normal;background:linear-gradient(100deg,#75e7df 0%,#ff86ba 25%,#ffe087 50%,#ff9369 75%,#75e7df 100%);background-size:300% 100%;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:miami-flow 7s ease-in-out infinite alternate}@keyframes miami-flow{to{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.miami-highlight{animation:none}}@media(forced-colors:active){.miami-highlight{background:none;color:CanvasText}}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
@@ -77,6 +118,7 @@ h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;marg
 @media(max-width:420px){.entry-grid{padding:18px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.social-links img{height:24px}.badge-wall{gap:3px;grid-template-columns:repeat(4,72px)}.badge-wall a,.badge-wall img{width:72px;height:25px}.side-foot{margin-top:16px}.story-en{font-size:16px}}
 </style></head><body>
 <main class="entry-grid"><article class="story" aria-labelledby="story-title"><div class="wanted-level" role="img" aria-label="Six wanted stars lighting up one by one">${wantedStars}</div>
+<div class="entry-ca" aria-label="afksix contract address"><span class="entry-ca-label">ca</span><span class="entry-ca-value" id="entry-ca-value" aria-live="polite">tba</span><button class="entry-ca-copy" id="entry-ca-copy" type="button" hidden>copy</button></div>
 <h1 id="story-title">${escape(title)}</h1>
 ${pairs.join('\n')}
 </article><aside class="side" aria-label="Enter and links"><a href="blockmind/"><img class="side-logo" src="afksix.png" alt="afksix"></a><p class="side-name">afksix</p>
@@ -84,7 +126,7 @@ ${pairs.join('\n')}
 <div class="side-rule"></div><p class="side-label">Links</p><div class="social-links">${social}</div>
 <div class="side-rule"></div><p class="side-label">Badges</p><div class="badge-wall">${badges}</div>
 <p class="side-foot">© 2026 afksix</p></aside></main>
-${rainbowScript}</body></html>`;
+${rainbowScript}${caScript}</body></html>`;
 fs.writeFileSync(entryPath, html);
 fs.writeFileSync(path.join(site, 'story.html'), '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=./"><title>afksix story</title></head><body><a href="./">Read the afksix story</a></body></html>');
 console.log(`Rendered complete English entry story with ${pairs.length} paragraphs`);
