@@ -49,10 +49,12 @@ const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
 }).join('');
 
 const social = current.match(/<p style="line-height:1\.3;">([\s\S]*?)<\/p>/)?.[1]?.replaceAll('&nbsp;', '');
-const badges = current.match(/<img src="badges\/sideadd\.gif"[\s\S]*?(?=\s*<\/center>)/)?.[0]?.replace(/<br\s*\/?>/gi, '');
-if (!social || !badges) throw new Error('Existing social links or badges are missing');
+if (!social) throw new Error('Existing social links are missing');
 const socialUrls = [...social.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);
 if (socialUrls.length !== 3) throw new Error(`Expected three original social links, got ${socialUrls.length}`);
+const gtaBadges = JSON.parse(fs.readFileSync(path.join(root, 'entry-gta-badges', 'manifest.json'), 'utf8'));
+if (gtaBadges.length !== 18 || gtaBadges.some(item => !fs.existsSync(path.join(root, 'entry-gta-badges', item.src)))) throw new Error('Expected 18 GTA affiliate badges');
+const badges = gtaBadges.map(item => `<a href="${escape(item.href)}" target="_blank" rel="noopener noreferrer" aria-label="${escape(item.alt)}"><img src="entry-gta-badges/${escape(item.src)}" alt="${escape(item.alt)}" loading="lazy"></a>`).join('');
 const socialButtons = [
   { name: 'X follow', badge: 'readme-x.svg', urlIndex: 0 },
   { name: 'GitHub source', badge: 'readme-github.svg', urlIndex: 1 },
@@ -130,12 +132,12 @@ h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;marg
 .badge-link{display:block;width:max-content;max-width:100%;line-height:0;transition:filter .15s ease,transform .15s ease}.badge-link:hover{filter:brightness(1.08);transform:translateY(-1px)}.badge-link:active{transform:translateY(1px)}.badge-link:focus-visible{outline:2px solid #ffe087;outline-offset:4px}.badge-link img{display:block;width:auto;max-width:100%;height:32px}.enterbtn{margin:0 auto}.enterbtn img{height:36px}
 .side-rule{height:1px;background:#242024;margin:27px 0 20px}.side-label{font:700 11px/1.4 Consolas,monospace;letter-spacing:.19em;text-transform:uppercase;color:#9f929b;margin:0 0 14px}
 .social-links{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
-.badge-wall{display:grid;grid-template-columns:repeat(3,88px);justify-content:center;gap:5px}.badge-wall a,.badge-wall img{display:block;width:88px;height:31px;max-width:100%}
+.badge-wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:274px;margin-inline:auto;gap:5px}.badge-wall a,.badge-wall img{display:block;width:100%;height:auto;aspect-ratio:88/31}
 .side-foot{font:12px/1.5 Consolas,monospace;color:#8e858d;margin:23px 0 0}
 .entry-gifs{position:fixed;inset:auto 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;pointer-events:none;z-index:2;transition:opacity .2s ease}.entry-gifs.is-reading{opacity:0}.entry-gifs a{display:block;line-height:0;flex:none;pointer-events:auto}.entry-gifs.is-reading a{pointer-events:none}.entry-gifs img{display:block;height:clamp(68px,8vw,115px);width:auto;max-width:25vw;object-fit:contain;filter:drop-shadow(0 0 9px rgba(255,126,174,.22))}
 @media(min-width:1101px) and (max-width:1439px){.entry-grid{padding-left:100px;padding-right:100px}}
 @media(max-width:1100px){.entry-grid{grid-template-columns:1fr;gap:35px}.side{position:static;grid-row:1;width:min(100%,420px);margin:auto}.story{max-width:none}.story-en{max-width:none}}
-@media(max-width:420px){.entry-grid{padding:18px;padding-bottom:100px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.badge-wall{gap:3px;grid-template-columns:repeat(4,72px)}.badge-wall a,.badge-wall img{width:72px;height:25px}.side-foot{margin-top:16px}.entry-status{gap:8px}.wanted-level{gap:2px;font-size:17px}.entry-ca{padding:7px 8px;gap:5px;font-size:11px}.entry-ca-copy{padding:4px 5px;font-size:10px}.story-en{font-size:16px}.entry-gifs{inset:auto 4px 5px}.entry-gifs img{height:45px;opacity:.9}}
+@media(max-width:420px){.entry-grid{padding:18px;padding-bottom:100px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.side-foot{margin-top:16px}.entry-status{gap:8px}.wanted-level{gap:2px;font-size:17px}.entry-ca{padding:7px 8px;gap:5px;font-size:11px}.entry-ca-copy{padding:4px 5px;font-size:10px}.story-en{font-size:16px}.entry-gifs{inset:auto 4px 5px}.entry-gifs img{height:45px;opacity:.9}}
 </style></head><body>
 <main class="entry-grid"><article class="story" aria-labelledby="story-title"><div class="entry-status"><div class="wanted-level" role="img" aria-label="Six wanted stars lighting up one by one">${wantedStars}</div>
 <div class="entry-ca" aria-label="afksix contract address"><span class="entry-ca-label">ca</span><span class="entry-ca-value" id="entry-ca-value" aria-live="polite">tba</span><button class="entry-ca-copy" id="entry-ca-copy" type="button" hidden>copy</button></div></div>

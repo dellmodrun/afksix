@@ -1,0 +1,1 @@
+The 18 original 88×31 badges in this folder were selected from [The GTA Place affiliates page](https://thegtaplace.com/affiliates/). `manifest.json` records each badge's image URL, name, and corresponding affiliate link. The entry page links each badge to the affiliate redirect shown on that page.

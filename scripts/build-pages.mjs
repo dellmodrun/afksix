@@ -16,6 +16,7 @@ fs.cpSync(woodooSource, output, { recursive: true });
 fs.cpSync(blockmindSource, blockmindOutput, { recursive: true });
 fs.cpSync(path.join(root, 'entry-gifs'), path.join(output, 'entry-gifs'), { recursive: true });
 fs.cpSync(path.join(root, 'entry-buttons'), path.join(output, 'entry-buttons'), { recursive: true });
+fs.cpSync(path.join(root, 'entry-gta-badges'), path.join(output, 'entry-gta-badges'), { recursive: true });
 
 const entry = path.join(output, 'index.html');
 const woodooEntry = fs.readFileSync(entry, 'utf8');
