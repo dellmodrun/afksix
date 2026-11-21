@@ -50,8 +50,14 @@ const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
 
 const social = current.match(/<p style="line-height:1\.3;">([\s\S]*?)<\/p>/)?.[1]?.replaceAll('&nbsp;', '');
 const badges = current.match(/<img src="badges\/sideadd\.gif"[\s\S]*?(?=\s*<\/center>)/)?.[0]?.replace(/<br\s*\/?>/gi, '');
-const rainbowScript = current.match(/<script>[\s\S]*?<\/script>/)?.[0];
-if (!social || !badges || !rainbowScript) throw new Error('Existing social links, badges, or Enter animation are missing');
+if (!social || !badges) throw new Error('Existing social links or badges are missing');
+const socialUrls = [...social.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);
+if (socialUrls.length !== 3) throw new Error(`Expected three original social links, got ${socialUrls.length}`);
+const socialButtons = [
+  { name: 'X', icon: 'x.svg', label: '' },
+  { name: 'GitHub', icon: 'github.svg', label: 'github' },
+  { name: 'Pump.fun', icon: 'pump.svg', label: 'pump.fun' },
+].map((item, index) => `<a href="${escape(socialUrls[index])}" target="_blank" rel="noopener noreferrer" aria-label="${item.name}"><img src="entry-buttons/${item.icon}" alt="" aria-hidden="true">${item.label ? `<span>${item.label}</span>` : ''}</a>`).join('');
 const caScript = `<script>
 (() => {
   const endpoint = 'https://afksix-ca-feed.zaunmanx.chatgpt.site/ca';
@@ -108,28 +114,27 @@ h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;marg
 .story-en{font-size:17px;line-height:1.85;color:#f2ebef;margin:0 0 1.15em;max-width:68ch}
 .story strong{font-weight:700;color:#f2ebef}.miami-highlight{font-weight:700;font-style:normal;background:linear-gradient(100deg,#75e7df 0%,#ff86ba 25%,#ffe087 50%,#ff9369 75%,#75e7df 100%);background-size:300% 100%;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:miami-flow 7s ease-in-out infinite alternate}@keyframes miami-flow{to{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.miami-highlight{animation:none}}@media(forced-colors:active){.miami-highlight{background:none;color:CanvasText}}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
 .side-logo{display:block;width:min(220px,100%);height:auto;margin:0 auto 18px}.side-name{font:700 26px/1 Arial,sans-serif;letter-spacing:-.04em;margin:0 0 25px}
-.enterbtn{display:inline-block;font:700 15px/1 "MS Sans Serif",Tahoma,Verdana,sans-serif;letter-spacing:1px;color:#000;text-decoration:none;background:#c0c0c0;padding:11px 32px;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;box-shadow:2px 2px 0 #000}
-.enterbtn:active{border-color:#808080 #fff #fff #808080;box-shadow:none;transform:translate(2px,2px)}
+.enterbtn{position:relative;display:flex;align-items:center;justify-content:space-between;width:min(244px,100%);min-height:88px;margin:0 auto;padding:15px 18px;color:#fff5ea;text-decoration:none;border:1px solid #f7b4c5;background:linear-gradient(90deg,rgba(12,6,22,.86),rgba(17,7,27,.22)),url("entry-buttons/vice-city.jpg") center 46%/cover;box-shadow:0 0 0 3px #080509,0 8px 24px rgba(255,87,155,.19),inset 0 -3px 0 #ff9cba;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;overflow:hidden}.enterbtn:after{content:"";position:absolute;inset:5px;border:1px solid rgba(255,236,213,.34);pointer-events:none}.enterbtn-text{position:relative;z-index:1;font:900 italic 33px/1 Impact,"Arial Black",sans-serif;letter-spacing:.07em;text-shadow:2px 3px 0 #190817,0 0 13px rgba(255,166,192,.7)}.enterbtn-arrow{position:relative;z-index:1;font:700 27px/1 Arial,sans-serif;text-shadow:0 2px 5px #190817}.enterbtn:hover{transform:translateY(-3px);filter:saturate(1.18);box-shadow:0 0 0 3px #080509,0 12px 28px rgba(255,87,155,.36),inset 0 -3px 0 #ff9cba}.enterbtn:active{transform:translateY(1px)}.enterbtn:focus-visible,.social-links a:focus-visible{outline:2px solid #ffe087;outline-offset:5px}
 .side-rule{height:1px;background:#242024;margin:27px 0 20px}.side-label{font:700 11px/1.4 Consolas,monospace;letter-spacing:.19em;text-transform:uppercase;color:#9f929b;margin:0 0 14px}
-.social-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}.social-links a{display:inline-flex}.social-links img{height:28px;width:auto}
+.social-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%}.social-links a{position:relative;min-width:0;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;overflow:hidden;text-decoration:none;color:#fff1e9;border:1px solid #715265;background:linear-gradient(180deg,rgba(10,6,22,.74),rgba(10,6,22,.91)),url("entry-buttons/vice-city.jpg") center/cover;box-shadow:inset 0 -2px 0 #e77f9e;font:700 9px/1.1 Arial,sans-serif;letter-spacing:.07em;transition:transform .2s ease,border-color .2s ease,filter .2s ease}.social-links a:nth-child(1){background-position:center,17% 50%}.social-links a:nth-child(2){background-position:center,50% 50%}.social-links a:nth-child(3){background-position:center,85% 50%}.social-links a:hover{transform:translateY(-2px);border-color:#f8b5ca;filter:saturate(1.25)}.social-links img{display:block;width:18px;height:18px;object-fit:contain}.social-links a:first-child img{width:21px;height:21px}
 .badge-wall{display:grid;grid-template-columns:repeat(3,88px);justify-content:center;gap:5px}.badge-wall a,.badge-wall img{display:block;width:88px;height:31px;max-width:100%}
 .side-foot{font:12px/1.5 Consolas,monospace;color:#8e858d;margin:23px 0 0}
 .entry-gifs{width:min(1290px,100%);min-height:180px;margin:0 auto;padding:0 clamp(20px,4vw,60px) 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.entry-gifs a{display:block;line-height:0;flex:none}.entry-gifs img{display:block;height:160px;width:auto;max-width:40vw;object-fit:contain;filter:drop-shadow(0 0 9px rgba(255,126,174,.22))}
 @media(min-width:1440px){.entry-gifs{position:fixed;inset:auto 12px 12px;width:auto;min-height:0;padding:0;pointer-events:none;z-index:2}.entry-gifs a{pointer-events:auto}.entry-gifs img{height:115px}}
 @media(max-width:880px){.entry-grid{grid-template-columns:1fr;gap:35px}.side{position:static;grid-row:1;width:min(100%,420px);margin:auto}.story{max-width:none}.story-en{max-width:none}}
-@media(max-width:420px){.entry-grid{padding:18px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.social-links img{height:24px}.badge-wall{gap:3px;grid-template-columns:repeat(4,72px)}.badge-wall a,.badge-wall img{width:72px;height:25px}.side-foot{margin-top:16px}.story-en{font-size:16px}.entry-gifs{min-height:112px}.entry-gifs img{height:100px}}
+@media(max-width:420px){.entry-grid{padding:18px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.badge-wall{gap:3px;grid-template-columns:repeat(4,72px)}.badge-wall a,.badge-wall img{width:72px;height:25px}.side-foot{margin-top:16px}.story-en{font-size:16px}.entry-gifs{min-height:112px}.entry-gifs img{height:100px}}
 </style></head><body>
 <main class="entry-grid"><article class="story" aria-labelledby="story-title"><div class="wanted-level" role="img" aria-label="Six wanted stars lighting up one by one">${wantedStars}</div>
 <div class="entry-ca" aria-label="afksix contract address"><span class="entry-ca-label">ca</span><span class="entry-ca-value" id="entry-ca-value" aria-live="polite">tba</span><button class="entry-ca-copy" id="entry-ca-copy" type="button" hidden>copy</button></div>
 <h1 id="story-title">${escape(title)}</h1>
 ${pairs.join('\n')}
 </article><aside class="side" aria-label="Enter and links"><a href="blockmind/"><img class="side-logo" src="afksix.png" alt="afksix"></a><p class="side-name">afksix</p>
-<a href="blockmind/" class="enterbtn" aria-label="Enter afksix"><span class="rainbow">E</span><span class="rainbow">N</span><span class="rainbow">T</span><span class="rainbow">E</span><span class="rainbow">R</span></a>
-<div class="side-rule"></div><p class="side-label">Links</p><div class="social-links">${social}</div>
+<a href="blockmind/" class="enterbtn" aria-label="Enter afksix"><span class="enterbtn-text">enter</span><span class="enterbtn-arrow" aria-hidden="true">&#8594;</span></a>
+<div class="side-rule"></div><p class="side-label">Links</p><div class="social-links">${socialButtons}</div>
 <div class="side-rule"></div><p class="side-label">Badges</p><div class="badge-wall">${badges}</div>
 <p class="side-foot">© 2026 afksix</p></aside></main>
 <div class="entry-gifs" aria-label="GTA animations"><a href="https://tenor.com/zh-CN/view/keyvon-crawford-kilo-tray-ballas-gta-san-andreas-streetz-of-los-santos-gif-24558015" target="_blank" rel="noopener noreferrer" aria-label="View Kilo Tray GIF on Tenor"><img src="entry-gifs/ballas-transparent.gif" alt="" loading="lazy"></a><a href="https://tenor.com/zh-CN/view/cj-gta-gif-23381821" target="_blank" rel="noopener noreferrer" aria-label="View CJ GIF on Tenor"><img src="entry-gifs/cj-transparent.gif" alt="" loading="lazy"></a></div>
-${rainbowScript}${caScript}</body></html>`;
+${caScript}</body></html>`;
 fs.writeFileSync(entryPath, html);
 fs.writeFileSync(path.join(site, 'story.html'), '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=./"><title>afksix story</title></head><body><a href="./">Read the afksix story</a></body></html>');
 console.log(`Rendered complete English entry story with ${pairs.length} paragraphs`);
