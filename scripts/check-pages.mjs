@@ -26,7 +26,7 @@ for (const badge of gtaBadges) if (!fs.existsSync(path.join(site, 'entry-gta-bad
 if (!entry.includes('entry-gifs/ballas-transparent.gif') || !entry.includes('entry-gifs/cj-transparent.gif') || !entry.includes('gif-24558015') || !entry.includes('gif-23381821')) throw new Error('Corner GTA animations are missing');
 if (!entry.includes('.entry-gifs{position:fixed') || !entry.includes('classList.toggle(\'is-reading\'')) throw new Error('Corner GIFs do not appear immediately or move aside during reading');
 if (entry.includes('Minecraft') || entry.includes('the block that wouldn')) throw new Error('Old Minecraft copy remains on the entry');
-for (const file of ['afksix.png', 'story.html', 'home/index.html', 'entry-gifs/ballas-transparent.gif', 'entry-gifs/cj-transparent.gif', 'entry-buttons/readme-enter.svg', 'entry-buttons/readme-github.svg', 'entry-buttons/readme-pump.svg', 'blockmind/site.css', 'blockmind/retro.css', 'blockmind/assets/vice-city-postcard.jpg', 'blockmind/assets/vice-city-drive.mp4', 'blockmind/assets/vice-city-drive-poster.jpg']) {
+for (const file of ['afksix.png', 'story.html', 'home/index.html', 'entry-gifs/ballas-transparent.gif', 'entry-gifs/cj-transparent.gif', 'entry-buttons/readme-enter.svg', 'entry-buttons/readme-github.svg', 'entry-buttons/readme-pump.svg', 'blockmind/site.css', 'blockmind/retro.css', 'blockmind/assets/vice-city-postcard.jpg']) {
   if (!fs.existsSync(path.join(site, file))) throw new Error(`Missing afksix site asset ${file}`);
 }
 if (fs.existsSync(path.join(site, 'entry-buttons', 'vice-city.jpg'))) throw new Error('Old realistic button image remains');
@@ -43,11 +43,11 @@ const projectHome = fs.readFileSync(path.join(site, 'blockmind', 'index.html'), 
 for (const id of ['brief', 'live', 'watch-guide', 'how', 'lives', 'learned', 'ladder', 'skills', 'mind', 'bill', 'docs', 'token', 'faq']) if (!projectHome.includes(`id="${id}"`)) throw new Error(`Missing project section ${id}`);
 if (!projectHome.includes('When the mission ends') || !projectHome.includes('No public sessions yet.') || !projectHome.includes('first public run') || !projectHome.includes('GTA VI')) throw new Error('GTA VI narrative or honest run status missing');
 if (!projectHome.includes('id="brief"') || !projectHome.includes('class="data-blueprint"') || !projectHome.includes('class="loop-diagram"') || !projectHome.includes('class="record-frame"') || projectHome.includes('<table')) throw new Error('Project explanation or honest data displays missing');
-if (!projectHome.includes('<video class="game-frame" autoplay muted loop playsinline preload="auto"') || !projectHome.includes('/afksix/blockmind/assets/vice-city-drive.mp4') || !projectHome.includes('Saintsfan') || projectHome.includes('youtube-nocookie.com/embed/') || !projectHome.includes('not measurements')) throw new Error('Local gameplay loop, creator credit, or data disclosure missing');
-if (fs.statSync(path.join(site, 'blockmind/assets/vice-city-drive.mp4')).size > 5_000_000) throw new Error('Gameplay loop is too large');
+if (!projectHome.includes('<figure class="hero-art"><img src="/afksix/blockmind/assets/vice-city-postcard.jpg"') || projectHome.includes('<video') || projectHome.includes('<iframe') || !projectHome.includes('not measurements')) throw new Error('Static GTA VI hero or data disclosure missing');
+if (!(projectHome.indexOf('id="top"') < projectHome.indexOf('id="live"') && projectHome.indexOf('id="live"') < projectHome.indexOf('id="brief"'))) throw new Error('Field feed must immediately follow the hero');
 if (!projectHome.includes('href="docs/"') || !projectHome.includes('$AFKSIX') || (projectHome.match(/data-ca title="tba"/g) || []).length < 2 || !projectHome.includes('data-token-status')) throw new Error('Project documentation or independent official token panel missing');
 const docs = fs.readFileSync(path.join(site, 'blockmind', 'docs', 'index.html'), 'utf8');
 if (!docs.includes('Read the run.') || !docs.includes('How to check the CA.') || !docs.includes('no visitor control panel')) throw new Error('Project documentation is incomplete');
 if (fs.existsSync(path.join(site, 'blockmind', 'api')) || fs.existsSync(path.join(site, 'blockmind', 'site', 'home.js'))) throw new Error('Old Minecraft runtime was deployed');
 if (!fs.existsSync(path.join(site, '.nojekyll'))) throw new Error('Pages bypass file missing');
-console.log('PASS: English entry, thirteen GTA VI project sections, four subpages, autoplay player gameplay, token feed, links, and assets');
+console.log('PASS: English entry, thirteen GTA VI project sections, four subpages, static hero, next-section field feed, token feed, links, and assets');

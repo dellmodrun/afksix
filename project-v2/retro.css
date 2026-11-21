@@ -91,12 +91,6 @@ main,.topbar,.foot{position:relative;z-index:1}
 .hero-art img{height:100%;min-height:335px;filter:saturate(.85) contrast(1.08);object-position:center}
 .hero-art:before{inset:25px 6px 6px}
 .hero-art figcaption{left:17px;right:17px;bottom:13px;font-size:9px}
-.game-video{display:flex;flex-direction:column;min-height:365px;overflow:hidden}
-.game-video:before{display:none}
-.game-video:after{content:'VICE_CITY_DRIVE.MP4'}
-.game-video figcaption{position:static;display:flex;justify-content:space-between;gap:8px;padding:6px 3px 0;color:#d6d9ed}
-.game-video figcaption a{color:#ffe05c;text-decoration:none}.game-video figcaption a:hover{text-decoration:underline}
-.game-frame{display:block;flex:1;width:100%;min-height:335px;border:0;background:#000;object-fit:cover}
 
 /* Tighter copy and small instrument panels keep the page feeling operated. */
 .kicker,.eyebrow{color:var(--gold);font-size:11px;letter-spacing:.08em}
@@ -229,7 +223,6 @@ main,.topbar,.foot{position:relative;z-index:1}
   .mini-grid,.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.statusline span{width:50%;font-size:9px}
   .hero-grid:before,.section>.wrap:before,.subhero>.wrap:before{font-size:10px;letter-spacing:0}
   .hero-grid:after,.section>.wrap:after,.subhero>.wrap:after{font-size:11px;letter-spacing:0}
-  .game-video{min-height:240px}.game-frame{min-height:220px}
   .blueprint-head{align-items:start}.blueprint-head b{font-size:13px}.blueprint-head .blueprint-state{font-size:8px}
   .signal-lines>div{grid-template-columns:110px 1fr;gap:5px}.signal-lines i{display:none}
   .loop-track div{flex-basis:42%}.record-top{font-size:9px}
