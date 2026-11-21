@@ -30,7 +30,7 @@ for (const file of ['afksix.png', 'story.html', 'home/index.html', 'entry-gifs/b
   if (!fs.existsSync(path.join(site, file))) throw new Error(`Missing afksix site asset ${file}`);
 }
 if (fs.existsSync(path.join(site, 'entry-buttons', 'vice-city.jpg'))) throw new Error('Old realistic button image remains');
-const routes = ['', 'skills/', 'proof/', 'ledger/'];
+const routes = ['', 'skills/', 'proof/', 'ledger/', 'docs/'];
 for (const route of routes) {
   const file = path.join(site, 'blockmind', route, 'index.html');
   if (!fs.existsSync(file)) throw new Error(`Missing page ${route || '/'}`);
@@ -40,8 +40,13 @@ for (const route of routes) {
   if (/>BlockMind<|\$BLOCKMIND|Minecraft|Mojang|watchblockmind|Opus 5\.5|Haiku 5\.5|hardcore|burns? \$AFKSIX/i.test(html)) throw new Error(`Old project narrative remains in ${route || '/'}`);
 }
 const projectHome = fs.readFileSync(path.join(site, 'blockmind', 'index.html'), 'utf8');
-for (const id of ['live', 'watch-guide', 'how', 'lives', 'learned', 'ladder', 'skills', 'mind', 'bill', 'faq']) if (!projectHome.includes(`id="${id}"`)) throw new Error(`Missing project section ${id}`);
+for (const id of ['brief', 'live', 'watch-guide', 'how', 'lives', 'learned', 'ladder', 'skills', 'mind', 'bill', 'docs', 'token', 'faq']) if (!projectHome.includes(`id="${id}"`)) throw new Error(`Missing project section ${id}`);
 if (!projectHome.includes('When the mission ends') || !projectHome.includes('No public sessions yet.') || !projectHome.includes('first public run') || !projectHome.includes('GTA VI')) throw new Error('GTA VI narrative or honest run status missing');
+if (!projectHome.includes('id="brief"') || !projectHome.includes('class="data-blueprint"') || !projectHome.includes('class="loop-diagram"') || !projectHome.includes('class="record-frame"') || projectHome.includes('<table')) throw new Error('Project explanation or honest data displays missing');
+if (!projectHome.includes('class="video-launch"') || !projectHome.includes('youtube-nocookie.com/embed/VQRLujxTm3c') || !projectHome.includes('https://www.rockstargames.com/VI/media/videos') || !projectHome.includes('not measurements')) throw new Error('Official footage player, fallback, or data disclosure missing');
+if (!projectHome.includes('href="docs/"') || !projectHome.includes('$AFKSIX') || (projectHome.match(/data-ca title="tba"/g) || []).length < 2 || !projectHome.includes('data-token-status')) throw new Error('Project documentation or independent official token panel missing');
+const docs = fs.readFileSync(path.join(site, 'blockmind', 'docs', 'index.html'), 'utf8');
+if (!docs.includes('Read the run.') || !docs.includes('How to check the CA.') || !docs.includes('no visitor control panel')) throw new Error('Project documentation is incomplete');
 if (fs.existsSync(path.join(site, 'blockmind', 'api')) || fs.existsSync(path.join(site, 'blockmind', 'site', 'home.js'))) throw new Error('Old Minecraft runtime was deployed');
 if (!fs.existsSync(path.join(site, '.nojekyll'))) throw new Error('Pages bypass file missing');
-console.log('PASS: English entry, ten GTA VI project sections, three subpages, links, CA feed, and assets');
+console.log('PASS: English entry, thirteen GTA VI project sections, four subpages, official video, token feed, links, and assets');
