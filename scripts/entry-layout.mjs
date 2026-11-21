@@ -54,8 +54,8 @@ if (!social || !badges) throw new Error('Existing social links or badges are mis
 const socialUrls = [...social.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);
 if (socialUrls.length !== 3) throw new Error(`Expected three original social links, got ${socialUrls.length}`);
 const socialButtons = [
-  { name: 'GitHub source', badge: 'readme-github.svg', urlIndex: 1 },
   { name: 'X follow', badge: 'readme-x.svg', urlIndex: 0 },
+  { name: 'GitHub source', badge: 'readme-github.svg', urlIndex: 1 },
   { name: 'Pump.fun trade', badge: 'readme-pump.svg', urlIndex: 2 },
 ].map(item => `<a class="badge-link" href="${escape(socialUrls[item.urlIndex])}" target="_blank" rel="noopener noreferrer" aria-label="${item.name}"><img src="entry-buttons/${item.badge}" alt="${item.name}"></a>`).join('');
 const caScript = `<script>
