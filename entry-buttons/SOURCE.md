@@ -1,1 +1,1 @@
-The button background is Rockstar Games' official Grand Theft Auto VI screenshot “Vice City 27” from https://www.rockstargames.com/VI/media/screenshots. The X, GitHub, and Pump.fun symbols were extracted from the corresponding badges already present in the original Woodoo entry page. The destination URLs remain unchanged.
+The button background is a code-native pixel-art city scene. The X, GitHub, and Pump.fun symbols were extracted from the corresponding badges already present in the original Woodoo entry page. The destination URLs remain unchanged.
