@@ -6,6 +6,9 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const site = path.join(root, '_site');
 const entry = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
 if (!entry.includes('<title>afksix</title>') || !entry.includes('href="blockmind/" class="enterbtn"')) throw new Error('afksix entry or Enter route is missing');
+if (!entry.includes('when i put the controller down') || !entry.includes("For afksix, that's where the experiment begins.") || !entry.includes('background:#000') || (entry.match(/class="story-pair"/g) || []).length !== 10) throw new Error('Full bilingual entry story or black layout is missing');
+if (!entry.includes('https://x.com/woodcutleaf') || !entry.includes('https://github.com/woodcutleaf/Woodoo') || !entry.includes('badges/sideadd.gif')) throw new Error('Existing social links or badges changed');
+if (entry.includes('Minecraft') || entry.includes('the block that wouldn')) throw new Error('Old Minecraft copy remains on the entry');
 for (const file of ['afksix.png', 'story.html', 'style.css', 'home/index.html', 'badges/badge_twitter.svg']) {
   if (!fs.existsSync(path.join(site, file))) throw new Error(`Missing Woodoo frontend asset ${file}`);
 }
@@ -28,4 +31,4 @@ for (const file of ['site/home.js', 'site/skills.js', 'site/proof.js', 'site/led
   if (!fs.existsSync(path.join(site, 'blockmind', file))) throw new Error(`Missing asset ${file}`);
 }
 if (!fs.existsSync(path.join(site, '.nojekyll'))) throw new Error('Pages bypass file missing');
-console.log('PASS: afksix names and logos; original pages, routes, and media assets');
+console.log('PASS: complete afksix entry story, existing links, project pages, and media assets');

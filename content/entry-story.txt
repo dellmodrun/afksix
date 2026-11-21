@@ -1,0 +1,44 @@
+when i put the controller down
+当我放下手柄\\
+
+
+
+我很想说，把手柄交给 AI，它就能潇洒地开车驶向夕阳。但我是开发者。我知道第一版更可能一头撞上墙，认真解释为什么这么做很合理，然后再撞一次。
+
+I'd love to say I can hand an AI the controller and watch it drive off into the sunset. But I'm a developer. I know the first version is more likely to drive straight into a wall, explain why that was a perfectly reasonable decision, and then do it again.
+
+我的工作集中在自主智能体的决策与控制：让 AI 理解不断变化的环境，把判断变成实际操作，再根据结果调整计划。afksix 需要的正是这些能力——让一个智能体在 GTA VI 的城市里持续行动、应对意外，而不必每一步都等人指挥。
+
+My work focuses on decision-making and control for autonomous agents: getting AI to understand a changing environment, turn decisions into actions, and adjust its plans based on what actually happens. Those are exactly the capabilities afksix needs to keep an agent moving through GTA VI, dealing with the unexpected without waiting for a human to direct every step.
+
+让一个 AI 在三十秒演示里“看起来很聪明”是一回事；让它在 GTA VI 里度过没有剧本的一天，是另一回事。镜头会移动，路况会变化，刚才还合理的计划，可能转弯到一半就失效了。它得发现自己的行动没有奏效，再判断该改哪里。如果车还卡在墙上，解释得再漂亮也没用。
+
+Getting an AI to look clever in a thirty-second demo is one thing. Building one that can get through an unscripted day in GTA VI is another. The camera moves. Traffic changes. A plan that made sense a moment ago can fall apart halfway through a turn. The agent has to recognise when an action hasn't worked and decide what to change. If the car is still stuck against the wall, a beautiful explanation doesn't help.
+
+但真正让我想把 afksix 做出来的，是另一个问题：**任务结束之后，它会做什么？**
+
+What really makes me want to build afksix, though, is a different question: **what does it do when the mission is over?**
+
+地图标记消失了。车还在运转。挡风玻璃外是一整座城市，却没人再告诉它目的地。
+
+The marker is gone. The engine is still running. There's a whole city beyond the windshield, and nobody telling it where to go.
+
+我的第一反应，是再给它一个目标，再画一条路线。可如果我一直替它决定目的地，就看不到它自己会往哪里去。
+
+My first instinct is to give it another objective. Draw another route. But if I keep choosing the destination, I never get to find out where it would go on its own.
+
+这就是 **afksix** 想做的实验：让一个 AI 带着对过去的记忆，在 GTA VI 里探索，并自己决定下一站。它可能走一条熟悉的路，也可能被刚发现的事物吸引，临时换个方向。偶尔，它可能花很长时间做一件看起来没什么用的事。
+
+That's the experiment I'm building with **afksix**: an AI exploring GTA VI, remembering what happened before and deciding for itself where to go next. It might take a familiar road, get distracted by something it just noticed, or change its mind halfway there. Sometimes it might spend far too long on something that doesn't seem useful at all.
+
+我希望大家能看到完整的过程：漂亮的判断，拐错的弯，什么都没发生的几分钟，以及仍然需要我接手的地方。
+
+I want the whole process to be visible: the good decisions, the wrong turns, the quiet minutes when nothing much happens, and the moments when I still have to take over.
+
+我不是说它有生命。我想观察的很具体：昨天的经历，能不能改变今天的决定？它会不会认出走过的街道，或者因为某次经历，主动绕开一个地方？许多普通的日子过去后，它穿过城市的路线，会不会慢慢有了自己的样子？
+
+I'm not saying it's alive. I want to observe something more specific: can yesterday's experience change today's decisions? Will it recognise a street it's been down before, or avoid a place because of what happened there? After enough ordinary days, will it start to have its own way of moving through the city?
+
+**AFK 通常意味着玩家离开了。对 afksix 来说，实验从那一刻开始。**
+
+**AFK usually means the player has stepped away. For afksix, that's where the experiment begins.**

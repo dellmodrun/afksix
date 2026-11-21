@@ -50,5 +50,6 @@ function visit(directory) {
 }
 visit(blockmindOutput);
 await import('./brand-only.mjs');
+await import('./entry-layout.mjs');
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
 console.log(`Prepared afksix branding at /afksix/ and ${base}/`);
