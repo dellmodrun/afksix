@@ -20,10 +20,11 @@ const highlights = [
   'what does it do when the mission is over?',
   'deciding for itself where to go next',
   "can yesterday's experience change today's decisions?",
+  "that's where the experiment begins.",
 ];
 let highlightHits = 0;
 const renderParagraph = value => {
-  let rendered = inline(value.toLowerCase());
+  let rendered = inline(value.toLowerCase()).replaceAll('<strong>afksix</strong>', 'afksix');
   for (const phrase of highlights) {
     if (rendered.includes(phrase)) {
       rendered = rendered.replace(phrase, `<mark class="miami-highlight">${phrase}</mark>`);
@@ -64,7 +65,7 @@ ${wantedAnimation}
 @media(prefers-reduced-motion:reduce){.wanted-star{animation:none!important;color:#ffd443!important;text-shadow:none!important}}
 h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;margin:0 0 30px;white-space:nowrap}
 .story-en{font-size:17px;line-height:1.85;color:#f2ebef;margin:0 0 1.15em;max-width:68ch}
-.story strong,.miami-highlight{font-weight:700;background:linear-gradient(100deg,#ffe087 0%,#ff9a69 28%,#ff80b8 59%,#83e7dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.miami-highlight{font-style:normal}@media(forced-colors:active){.story strong,.miami-highlight{background:none;color:CanvasText}}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
+.story strong{font-weight:700;color:#f2ebef}.miami-highlight{font-weight:700;font-style:normal;background:linear-gradient(100deg,#75e7df 0%,#ff86ba 25%,#ffe087 50%,#ff9369 75%,#75e7df 100%);background-size:300% 100%;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:miami-flow 7s ease-in-out infinite alternate}@keyframes miami-flow{to{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.miami-highlight{animation:none}}@media(forced-colors:active){.miami-highlight{background:none;color:CanvasText}}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
 .side-logo{display:block;width:min(220px,100%);height:auto;margin:0 auto 18px}.side-name{font:700 26px/1 Arial,sans-serif;letter-spacing:-.04em;margin:0 0 25px}
 .enterbtn{display:inline-block;font:700 15px/1 "MS Sans Serif",Tahoma,Verdana,sans-serif;letter-spacing:1px;color:#000;text-decoration:none;background:#c0c0c0;padding:11px 32px;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;box-shadow:2px 2px 0 #000}
 .enterbtn:active{border-color:#808080 #fff #fff #808080;box-shadow:none;transform:translate(2px,2px)}

@@ -6,11 +6,11 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const site = path.join(root, '_site');
 const entry = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
 if (!entry.includes('<title>afksix</title>') || !entry.includes('href="blockmind/" class="enterbtn"')) throw new Error('afksix entry or Enter route is missing');
-if (!entry.includes('when i put the controller down') || !entry.includes("for afksix, that's where the experiment begins.") || !entry.includes('background:#000') || (entry.match(/class="story-en"/g) || []).length !== 10 || /[\u3400-\u9fff]/.test(entry)) throw new Error('English entry story or black layout is missing');
+if (!entry.includes('when i put the controller down') || !entry.includes('afk usually means the player has stepped away.') || !entry.includes('background:#000') || (entry.match(/class="story-en"/g) || []).length !== 10 || /[\u3400-\u9fff]/.test(entry)) throw new Error('English entry story or black layout is missing');
 for (const paragraph of entry.matchAll(/<p class="story-en" lang="en">([\s\S]*?)<\/p>/g)) {
   if (/[A-Z]/.test(paragraph[1])) throw new Error('Entry article is not fully lowercase');
 }
-if ((entry.match(/class="miami-highlight"/g) || []).length !== 6 || !entry.includes('linear-gradient(100deg,#ffe087') || !entry.includes('deciding for itself where to go next</mark>')) throw new Error('Miami gradient article highlights are missing');
+if ((entry.match(/class="miami-highlight"/g) || []).length !== 7 || !entry.includes('animation:miami-flow 7s') || !entry.includes('deciding for itself where to go next</mark>') || !entry.includes("that's where the experiment begins.</mark>") || entry.includes('<strong>afksix</strong>')) throw new Error('Flowing Miami article highlights are missing or project name is highlighted');
 if (!entry.includes('white-space:nowrap') || entry.includes('story-pair')) throw new Error('Entry title or article layout is wrong');
 if (entry.includes('afksix / story') || !entry.includes('class="wanted-level"') || (entry.match(/class="wanted-star"/g) || []).length !== 6 || !entry.includes('wanted-6 7.2s linear infinite')) throw new Error('Six animated wanted stars are missing');
 if (!entry.includes('https://x.com/woodcutleaf') || !entry.includes('https://github.com/woodcutleaf/Woodoo') || !entry.includes('badges/sideadd.gif')) throw new Error('Existing social links or badges changed');
