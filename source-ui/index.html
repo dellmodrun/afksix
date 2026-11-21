@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090d10">
+  <meta name="description" content="Browse and run the afksix autonomous exploration core inside the afksix website.">
+  <title>Source / afksix</title>
+  <link rel="icon" href="../afksix.png">
+  <link rel="stylesheet" href="source.css">
+</head>
+<body>
+  <header class="top"><div class="wrap"><a class="brand" href="../" aria-label="afksix story"><img src="../afksix.png" alt=""><span>afksix<span style="color:#81bfa1"> / source</span></span></a><nav class="topnav" aria-label="Site navigation"><a href="../">← Story</a><a href="../blockmind/">Project</a><a class="current" href="./" aria-current="page">Source</a></nav></div></header>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">PUBLIC REPOSITORY / 001</div>
+      <h1>The loop behind <span>the next choice.</span></h1>
+      <p>Explore real source files, run the same core in your browser, and inspect every decision. The baseline works today in a simulated city. The GTA VI game connection is a separate integration still to be built and verified.</p>
+      <div class="banner"><span class="pill live">● Runnable core</span><span class="pill live">✓ Tests passing</span><span class="pill">Node.js 20+</span><span class="pill warn">GTA VI adapter / pending</span></div>
+      <div class="notice"><strong>Current scope:</strong> autonomous navigation in a deterministic city simulation. This page does not show GTA VI gameplay or claim that a game is connected.</div>
+    </section>
+    <div class="tabs" role="tablist" aria-label="Repository sections"><button role="tab" data-tab="code" aria-controls="pane-code" aria-selected="true">▣ Code</button><button role="tab" data-tab="demo" aria-controls="pane-demo" aria-selected="false">▶ Live demo</button></div>
+    <section class="pane" id="pane-code" role="tabpanel">
+      <div class="repo-head"><div><strong>afksix / exploration-core</strong><br><small>main · six source files · MIT</small></div><a class="button primary" href="./afksix-core.zip" download="afksix-core.zip">↓ Download source ZIP</a></div>
+      <div class="file-layout"><div class="box"><div class="box-title"><span>Files</span><span>MAIN ▾</span></div><div class="file-list" id="file-list" aria-label="Source files"></div></div><div class="box"><div class="code-toolbar"><b id="file-name">README.md</b><span id="file-size">Loading…</span><button class="button" id="download-file" type="button">↓ Raw file</button></div><div class="code-scroll"><pre><code id="code">Loading source…</code></pre></div></div></div>
+      <article class="box readme"><h2>README / afksix exploration core</h2><p>An autonomous exploration baseline you can run today. It observes a small simulated city, chooses where to go, plans a road route, moves, checks the result, and keeps a short memory. Every step produces an inspectable event. The same core powers the interactive demo on this page.</p><h3>Quick start</h3><pre>node src/cli.mjs demo 60 6
+node --test test/*.test.mjs</pre><p>Requires Node.js 20 or newer. There are no runtime dependencies or API keys. The CLI writes JSON events to standard output and a summary to standard error. Set <code>AFKSIX_OUTPUT=run.json</code> to save the full run.</p><h3>What it actually does</h3><ul><li>Chooses destinations and plans routes through a road grid.</li><li>Performs an observe → choose → act → check → remember cycle.</li><li>Records a trace with positions, decisions, actions and outcomes.</li><li>Runs deterministically so another person can repeat the same result.</li></ul><h3>Integration status</h3><p>The simulation core runs. GTA VI screen capture, game input, model inference and live streaming are not connected. A verified public game run is still required before those features can be claimed.</p></article>
+    </section>
+    <section class="pane" id="pane-demo" role="tabpanel" hidden><div class="demo-intro"><div><div class="eyebrow">SAME CODE / BROWSER RUN</div><h2>Watch it decide.</h2><p>Step through a simulated city, or let the agent continue on its own. The map and trace come from the same source file available in the Code tab.</p></div><button class="button" id="download-trace" type="button">↓ Export run JSON</button></div><div class="demo-grid"><div class="box map-box"><div class="box-title"><span>SIMULATED CITY / MAP</span><span>SEED 006</span></div><div class="map" id="city-map" role="img" aria-label="Simulated road map with moving autonomous agent"></div><div class="legend"><span><b>▲</b> agent</span><span>□ landmark</span><span>◆ visited street</span><span>◌ current goal</span></div></div><div class="side"><div class="box metric"><small>Current step</small><strong id="step-value">000</strong><small>Destination</small><strong id="goal-value" style="font-size:21px">Choosing…</strong><small>Landmarks reached</small><strong id="place-value" style="font-size:21px">0 / 6</strong><div class="controls"><button class="button primary" id="play-button" type="button">▶ Run</button><button class="button" id="step-button" type="button">→ Step</button><button class="button" id="reset-button" type="button">↺ Reset</button></div></div><div class="box"><div class="box-title"><span>DECISION TRACE</span><span>NEWEST FIRST</span></div><div class="trace" id="trace" aria-live="polite"></div></div></div></div></section>
+  </main>
+  <footer class="footer"><div class="wrap"><span>AFKSIX / OPEN SOURCE BASELINE · MIT</span><span>Simulation is operational. GTA VI integration is pending.</span></div></footer>
+  <script type="module" src="source.js"></script>
+</body>
+</html>

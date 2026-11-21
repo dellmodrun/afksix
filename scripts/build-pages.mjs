@@ -13,6 +13,9 @@ for (const directory of ['entry-gifs', 'entry-buttons', 'entry-gta-badges']) {
   fs.cpSync(path.join(root, directory), path.join(output, directory), { recursive: true });
 }
 fs.cpSync(path.join(root, 'project-v2', 'assets'), path.join(project, 'assets'), { recursive: true });
+fs.cpSync(path.join(root, 'source-ui'), path.join(output, 'source'), { recursive: true });
+fs.cpSync(path.join(root, 'afksix-core'), path.join(output, 'source', 'files'), { recursive: true });
+await import('./source-archive.mjs');
 fs.copyFileSync(path.join(root, 'brand', 'logo.png'), path.join(output, 'afksix.png'));
 fs.copyFileSync(path.join(root, 'project-v2', 'site.css'), path.join(project, 'site.css'));
 fs.copyFileSync(path.join(root, 'project-v2', 'retro.css'), path.join(project, 'retro.css'));

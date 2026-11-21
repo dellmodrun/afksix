@@ -14,10 +14,11 @@ if ((entry.match(/class="miami-highlight"/g) || []).length !== 7 || !entry.inclu
 if (!entry.includes('white-space:nowrap') || entry.includes('story-pair')) throw new Error('Entry title or article layout is wrong');
 if (entry.includes('afksix / story') || !entry.includes('class="wanted-level"') || (entry.match(/class="wanted-star"/g) || []).length !== 6 || !entry.includes('wanted-6 7.2s linear infinite')) throw new Error('Six animated wanted stars are missing');
 if (!/class="entry-status"><div class="wanted-level"[\s\S]*?<\/div>\s*<div class="entry-ca"[\s\S]*?<\/div><\/div>\s*<h1 id="story-title"/.test(entry) || !entry.includes('.entry-status{display:flex') || !entry.includes('https://afksix-ca-feed.zaunmanx.chatgpt.site/ca') || !entry.includes('setInterval(refreshCa, 2000)') || !entry.includes('id="entry-ca-copy"')) throw new Error('Independent CA box must share one line with wanted stars');
-if (!entry.includes('href="https://x.com/afksixauto"') || !entry.includes('href="https://github.com/"') || !entry.includes('href="https://pump.fun/"') || entry.includes('https://x.com/woodcutleaf') || entry.includes('https://github.com/woodcutleaf/Woodoo') || entry.includes('https://pump.fun/coin/7cYYeZ2kt7XZa5Bj9ed4qg39nmUvT6SP7XBiU7twpump')) throw new Error('afksix social links are incorrect');
+if (!entry.includes('href="https://x.com/afksixauto"') || !entry.includes('href="source/"') || !entry.includes('href="https://pump.fun/"') || entry.includes('href="https://github.com/"') || entry.includes('https://x.com/woodcutleaf') || entry.includes('https://github.com/woodcutleaf/Woodoo') || entry.includes('https://pump.fun/coin/7cYYeZ2kt7XZa5Bj9ed4qg39nmUvT6SP7XBiU7twpump')) throw new Error('afksix social links are incorrect');
 if (!entry.includes('entry-buttons/readme-enter.svg') || !entry.includes('entry-buttons/readme-github.svg') || !entry.includes('entry-buttons/readme-x.svg') || !entry.includes('entry-buttons/readme-pump.svg') || entry.includes('class="readme-button') || entry.includes('class="rainbow"') || entry.includes('badges/badge_twitter.svg" alt=')) throw new Error('Original Shields.io README badges are missing');
 if (!/<div class="social-links">(?:<a class="badge-link"[^>]+><img src="entry-buttons\/readme-[^"]+\.svg" alt="[^"]+"><\/a>){3}<\/div>/.test(entry)) throw new Error('Social links must use original badge SVG images');
 if (entry.indexOf('entry-buttons/readme-x.svg') > entry.indexOf('entry-buttons/readme-github.svg')) throw new Error('X badge must appear before GitHub');
+if (!/<a class="badge-link" href="source\/" aria-label="Browse afksix source on this site"/.test(entry)) throw new Error('Entry source badge must open the on-site repository');
 const badgeWall = entry.match(/<div class="badge-wall">([\s\S]*?)<\/div>/)?.[1];
 const gtaBadges = JSON.parse(fs.readFileSync(path.join(site, 'entry-gta-badges', 'manifest.json'), 'utf8'));
 if (!badgeWall || gtaBadges.length !== 18 || (badgeWall.match(/<a /g) || []).length !== 18 || (badgeWall.match(/<img src="entry-gta-badges\//g) || []).length !== 18 || !entry.includes('grid-template-columns:repeat(3,minmax(0,1fr))') || badgeWall.includes('src="badges/')) throw new Error('GTA badge wall must contain exactly six rows of three new badges');
@@ -50,4 +51,10 @@ const docs = fs.readFileSync(path.join(site, 'blockmind', 'docs', 'index.html'),
 if (!docs.includes('Read the run.') || !docs.includes('How to check the CA.') || !docs.includes('no visitor control panel')) throw new Error('Project documentation is incomplete');
 if (fs.existsSync(path.join(site, 'blockmind', 'api')) || fs.existsSync(path.join(site, 'blockmind', 'site', 'home.js'))) throw new Error('Old Minecraft runtime was deployed');
 if (!fs.existsSync(path.join(site, '.nojekyll'))) throw new Error('Pages bypass file missing');
+const sourcePage = fs.readFileSync(path.join(site, 'source', 'index.html'), 'utf8');
+if (!sourcePage.includes('id="file-list"') || !sourcePage.includes('id="city-map"') || !sourcePage.includes('GTA VI adapter / pending') || !sourcePage.includes('source.js') || !sourcePage.includes('afksix-core.zip')) throw new Error('On-site source repository or simulation demo missing');
+if (!fs.existsSync(path.join(site, 'source', 'afksix-core.zip'))) throw new Error('Source download archive missing');
+for (const file of ['README.md', 'package.json', 'LICENSE', 'src/simulator.mjs', 'src/cli.mjs', 'test/simulator.test.mjs']) {
+  if (!fs.existsSync(path.join(site, 'source', 'files', file))) throw new Error(`Missing source repository file ${file}`);
+}
 console.log('PASS: English entry, thirteen GTA VI project sections, four subpages, static hero, next-section field feed, token feed, links, and assets');

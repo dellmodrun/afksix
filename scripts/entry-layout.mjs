@@ -47,15 +47,15 @@ const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
   return `.wanted-star:nth-child(${i + 1}){animation:wanted-${i + 1} 7.2s linear infinite}@keyframes wanted-${i + 1}{${before} ${on}%,${on + 2}%,${on + 4}%,84%{color:#ffd443;text-shadow:0 0 5px #ffd443,0 0 11px #ffb600} ${on + 1}%,${on + 3}%{color:#b88a23;text-shadow:none} 91%,100%{color:#4b4020;text-shadow:none}}`;
 }).join('');
 
-const socialUrls = ['https://x.com/afksixauto', 'https://github.com/', 'https://pump.fun/'];
+const socialUrls = ['https://x.com/afksixauto', 'source/', 'https://pump.fun/'];
 const gtaBadges = JSON.parse(fs.readFileSync(path.join(root, 'entry-gta-badges', 'manifest.json'), 'utf8'));
 if (gtaBadges.length !== 18 || gtaBadges.some(item => !fs.existsSync(path.join(root, 'entry-gta-badges', item.src)))) throw new Error('Expected 18 GTA affiliate badges');
 const badges = gtaBadges.map(item => `<a href="${escape(item.href)}" target="_blank" rel="noopener noreferrer" aria-label="${escape(item.alt)}"><img src="entry-gta-badges/${escape(item.src)}" alt="${escape(item.alt)}" loading="lazy"></a>`).join('');
 const socialButtons = [
   { name: 'X follow', badge: 'readme-x.svg', urlIndex: 0 },
-  { name: 'GitHub source', badge: 'readme-github.svg', urlIndex: 1 },
+  { name: 'Browse afksix source on this site', badge: 'readme-github.svg', urlIndex: 1 },
   { name: 'Pump.fun trade', badge: 'readme-pump.svg', urlIndex: 2 },
-].map(item => `<a class="badge-link" href="${escape(socialUrls[item.urlIndex])}" target="_blank" rel="noopener noreferrer" aria-label="${item.name}"><img src="entry-buttons/${item.badge}" alt="${item.name}"></a>`).join('');
+].map(item => `<a class="badge-link" href="${escape(socialUrls[item.urlIndex])}"${item.urlIndex === 1 ? '' : ' target="_blank" rel="noopener noreferrer"'} aria-label="${item.name}"><img src="entry-buttons/${item.badge}" alt="${item.name}"></a>`).join('');
 const caScript = `<script>
 (() => {
   const endpoint = 'https://afksix-ca-feed.zaunmanx.chatgpt.site/ca';

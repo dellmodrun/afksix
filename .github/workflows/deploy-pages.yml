@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm run build:pages
+      - run: npm --prefix afksix-core test
       - run: npm run check:pages
       - uses: actions/configure-pages@v5
         with:
