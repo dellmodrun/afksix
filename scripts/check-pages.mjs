@@ -8,6 +8,7 @@ const entry = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
 if (!entry.includes('<title>afksix</title>') || !entry.includes('href="blockmind/" class="enterbtn"')) throw new Error('afksix entry or Enter route is missing');
 if (!entry.includes('when i put the controller down') || !entry.includes("For afksix, that's where the experiment begins.") || !entry.includes('background:#000') || (entry.match(/class="story-en"/g) || []).length !== 10 || /[\u3400-\u9fff]/.test(entry)) throw new Error('English entry story or black layout is missing');
 if (!entry.includes('white-space:nowrap') || entry.includes('story-pair')) throw new Error('Entry title or article layout is wrong');
+if (entry.includes('afksix / story') || !entry.includes('class="wanted-level"') || (entry.match(/class="wanted-star"/g) || []).length !== 6 || !entry.includes('wanted-6 7.2s linear infinite')) throw new Error('Six animated wanted stars are missing');
 if (!entry.includes('https://x.com/woodcutleaf') || !entry.includes('https://github.com/woodcutleaf/Woodoo') || !entry.includes('badges/sideadd.gif')) throw new Error('Existing social links or badges changed');
 if (entry.includes('Minecraft') || entry.includes('the block that wouldn')) throw new Error('Old Minecraft copy remains on the entry');
 for (const file of ['afksix.png', 'story.html', 'style.css', 'home/index.html', 'badges/badge_twitter.svg']) {

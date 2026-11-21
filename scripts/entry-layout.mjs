@@ -20,6 +20,12 @@ for (let i = 1; i < blocks.length; i += 2) {
   if (!/[\u3400-\u9fff]/.test(zh) || /[\u3400-\u9fff]/.test(en)) throw new Error(`Bad bilingual pair ${Math.ceil(i / 2)}`);
   pairs.push(`<p class="story-en" lang="en">${inline(en)}</p>`);
 }
+const wantedStars = Array.from({ length: 6 }, (_, i) => `<span class="wanted-star" aria-hidden="true">★</span>`).join('');
+const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
+  const on = i * 11;
+  const before = i ? `0%,${on - 1}%{color:#343039;text-shadow:none}` : '';
+  return `.wanted-star:nth-child(${i + 1}){animation:wanted-${i + 1} 7.2s linear infinite}@keyframes wanted-${i + 1}{${before} ${on}%,${on + 2}%,${on + 4}%,84%{color:#f9f9ff;text-shadow:0 0 5px #fff,0 0 11px #f5cce8} ${on + 1}%,${on + 3}%{color:#6a6270;text-shadow:none} 91%,100%{color:#343039;text-shadow:none}}`;
+}).join('');
 
 const social = current.match(/<p style="line-height:1\.3;">([\s\S]*?)<\/p>/)?.[1]?.replaceAll('&nbsp;', '');
 const badges = current.match(/<img src="badges\/sideadd\.gif"[\s\S]*?(?=\s*<\/center>)/)?.[0]?.replace(/<br\s*\/?>/gi, '');
@@ -33,7 +39,9 @@ const html = `<!doctype html>
 :root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:#000;color:#f6f3f6;font-family:Arial,"Microsoft YaHei",sans-serif}
 .entry-grid{width:min(1290px,100%);margin:auto;padding:clamp(26px,4vw,64px);display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:clamp(40px,5vw,100px);align-items:start}
-.story{max-width:720px;min-width:0}.eyebrow{font:700 12px/1.4 Consolas,monospace;letter-spacing:.24em;color:#ff72bd;text-transform:uppercase;margin:0 0 20px}
+.story{max-width:720px;min-width:0}.wanted-level{display:flex;gap:5px;align-items:center;margin:0 0 20px;height:20px;font:20px/1 Arial,sans-serif;letter-spacing:0}.wanted-star{color:#343039}
+${wantedAnimation}
+@media(prefers-reduced-motion:reduce){.wanted-star{animation:none!important;color:#f9f9ff!important;text-shadow:none!important}}
 h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;margin:0 0 30px;white-space:nowrap}
 .story-en{font-size:17px;line-height:1.85;color:#f2ebef;margin:0 0 1.15em;max-width:68ch}
 .story strong{color:#ff9bd0;font-weight:700}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
@@ -47,7 +55,7 @@ h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;marg
 @media(max-width:880px){.entry-grid{grid-template-columns:1fr;gap:35px}.side{position:static;grid-row:1;width:min(100%,420px);margin:auto}.story{max-width:none}.story-en{max-width:none}}
 @media(max-width:420px){.entry-grid{padding:18px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.social-links img{height:24px}.badge-wall{gap:3px;grid-template-columns:repeat(4,72px)}.badge-wall a,.badge-wall img{width:72px;height:25px}.side-foot{margin-top:16px}.story-en{font-size:16px}}
 </style></head><body>
-<main class="entry-grid"><article class="story" aria-labelledby="story-title"><p class="eyebrow">afksix / story</p>
+<main class="entry-grid"><article class="story" aria-labelledby="story-title"><div class="wanted-level" role="img" aria-label="Six wanted stars lighting up one by one">${wantedStars}</div>
 <h1 id="story-title">${escape(title)}</h1>
 ${pairs.join('\n')}
 </article><aside class="side" aria-label="Enter and links"><a href="blockmind/"><img class="side-logo" src="afksix.png" alt="afksix"></a><p class="side-name">afksix</p>
