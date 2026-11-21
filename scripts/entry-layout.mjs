@@ -54,10 +54,10 @@ if (!social || !badges) throw new Error('Existing social links or badges are mis
 const socialUrls = [...social.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);
 if (socialUrls.length !== 3) throw new Error(`Expected three original social links, got ${socialUrls.length}`);
 const socialButtons = [
-  { name: 'X', icon: 'x.svg', action: 'follow', kind: 'x' },
-  { name: 'GitHub', icon: 'github.svg', action: 'source', kind: 'github' },
-  { name: 'Pump.fun', icon: 'pump.svg', action: 'trade', kind: 'pump' },
-].map((item, index) => `<a class="readme-button ${item.kind}" href="${escape(socialUrls[index])}" target="_blank" rel="noopener noreferrer" aria-label="${item.name} ${item.action}"><span class="readme-brand"><img src="entry-buttons/${item.icon}" alt="" aria-hidden="true"><span>${item.name}</span></span><span class="readme-action">${item.action}</span></a>`).join('');
+  { name: 'GitHub source', badge: 'readme-github.svg', urlIndex: 1 },
+  { name: 'X follow', badge: 'readme-x.svg', urlIndex: 0 },
+  { name: 'Pump.fun trade', badge: 'readme-pump.svg', urlIndex: 2 },
+].map(item => `<a class="badge-link" href="${escape(socialUrls[item.urlIndex])}" target="_blank" rel="noopener noreferrer" aria-label="${item.name}"><img src="entry-buttons/${item.badge}" alt="${item.name}"></a>`).join('');
 const caScript = `<script>
 (() => {
   const endpoint = 'https://afksix-ca-feed.zaunmanx.chatgpt.site/ca';
@@ -127,7 +127,7 @@ h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;marg
 .story-en{font-size:17px;line-height:1.85;color:#f2ebef;margin:0 0 1.15em;max-width:68ch}
 .story strong{font-weight:700;color:#f2ebef}.miami-highlight{font-weight:700;font-style:normal;background:linear-gradient(100deg,#75e7df 0%,#ff86ba 25%,#ffe087 50%,#ff9369 75%,#75e7df 100%);background-size:300% 100%;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:miami-flow 7s ease-in-out infinite alternate}@keyframes miami-flow{to{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.miami-highlight{animation:none}}@media(forced-colors:active){.miami-highlight{background:none;color:CanvasText}}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
 .side-logo{display:block;width:min(220px,100%);height:auto;margin:0 auto 18px}.side-name{font:700 26px/1 Arial,sans-serif;letter-spacing:-.04em;margin:0 0 25px}
-.readme-button{display:inline-flex;align-items:stretch;min-height:50px;max-width:100%;overflow:hidden;border-radius:8px;color:#fff;text-decoration:none;font:500 20px/1 Arial,sans-serif;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.26);transition:filter .15s ease,transform .15s ease}.readme-button:hover{filter:brightness(1.1);transform:translateY(-1px)}.readme-button:active{transform:translateY(1px)}.readme-button:focus-visible{outline:2px solid #ffe087;outline-offset:4px}.readme-brand,.readme-action{display:flex;align-items:center;justify-content:center;min-height:50px}.readme-brand{gap:9px;padding:0 14px;background:linear-gradient(115deg,#353535,#1f1f1f);font-weight:700}.readme-action{padding:0 17px;background:linear-gradient(115deg,#4b4b4b,#646464);font-weight:400}.readme-brand img{display:block;width:25px;height:25px;object-fit:contain}.readme-button.x .readme-brand{padding:0 16px;background:linear-gradient(115deg,#168cf6,#1285e9)}.readme-button.x .readme-brand span{display:none}.readme-button.x .readme-action{background:linear-gradient(115deg,#2eacff,#1598ee)}.readme-button.pump .readme-brand{background:linear-gradient(115deg,#198a7b,#147f75)}.readme-button.pump .readme-action{background:linear-gradient(115deg,#2ba995,#38b7a2)}.readme-button.enterbtn .readme-brand{background:linear-gradient(115deg,#137acc,#086fbe)}.readme-button.enterbtn .readme-action{background:linear-gradient(115deg,#35a8f4,#198bdc)}.readme-enter-icon{font:800 22px/1 Consolas,monospace}.enterbtn{margin:0 auto}
+.badge-link{display:block;width:max-content;max-width:100%;line-height:0;transition:filter .15s ease,transform .15s ease}.badge-link:hover{filter:brightness(1.08);transform:translateY(-1px)}.badge-link:active{transform:translateY(1px)}.badge-link:focus-visible{outline:2px solid #ffe087;outline-offset:4px}.badge-link img{display:block;width:auto;max-width:100%;height:50px}.enterbtn{margin:0 auto}
 .side-rule{height:1px;background:#242024;margin:27px 0 20px}.side-label{font:700 11px/1.4 Consolas,monospace;letter-spacing:.19em;text-transform:uppercase;color:#9f929b;margin:0 0 14px}
 .social-links{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
 .badge-wall{display:grid;grid-template-columns:repeat(3,88px);justify-content:center;gap:5px}.badge-wall a,.badge-wall img{display:block;width:88px;height:31px;max-width:100%}
@@ -142,7 +142,7 @@ h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;marg
 <h1 id="story-title">${escape(title)}</h1>
 ${pairs.join('\n')}
 </article><aside class="side" aria-label="Enter and links"><a href="blockmind/"><img class="side-logo" src="afksix.png" alt="afksix"></a><p class="side-name">afksix</p>
-<a href="blockmind/" class="readme-button enterbtn" aria-label="Enter afksix"><span class="readme-brand"><span class="readme-enter-icon" aria-hidden="true">&gt;</span><span>afksix</span></span><span class="readme-action">enter</span></a>
+<a href="blockmind/" class="badge-link enterbtn" aria-label="Enter afksix"><img src="entry-buttons/readme-enter.svg" alt="afksix enter"></a>
 <div class="side-rule"></div><p class="side-label">Links</p><div class="social-links">${socialButtons}</div>
 <div class="side-rule"></div><p class="side-label">Badges</p><div class="badge-wall">${badges}</div>
 <p class="side-foot">© 2026 afksix</p></aside></main>
