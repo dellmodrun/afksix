@@ -91,18 +91,12 @@ main,.topbar,.foot{position:relative;z-index:1}
 .hero-art img{height:100%;min-height:335px;filter:saturate(.85) contrast(1.08);object-position:center}
 .hero-art:before{inset:25px 6px 6px}
 .hero-art figcaption{left:17px;right:17px;bottom:13px;font-size:9px}
-.game-video{display:flex;flex-direction:column;min-height:365px}
-.game-video:after{content:'GTAVI_TRAILER_2.MP4'}
-.video-launch{position:relative;display:block;flex:1;min-height:335px;width:100%;padding:0;border:0;background:#121223;color:#fff;cursor:pointer;overflow:hidden}
-.video-launch img{width:100%;height:100%;min-height:335px;object-fit:cover;filter:saturate(.8) brightness(.69);transition:filter .2s,transform .3s}
-.video-launch:hover img{filter:saturate(1) brightness(.82);transform:scale(1.03)}
-.video-launch:after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.13) 4px)}
-.video-play{position:absolute;z-index:2;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:72px;height:72px;padding-left:5px;border:2px solid #fff;background:#ff84b1;color:#120711;box-shadow:5px 5px 0 #06070d;font:900 26px var(--mono);transition:transform .2s}
-.video-launch:hover .video-play{transform:translate(-50%,-50%) scale(1.09)}
-.video-caption{position:absolute;z-index:2;left:14px;top:13px;padding:7px 9px;background:#070e0dda;border:1px solid #8ce1c7;color:#fff;font:700 10px var(--mono);letter-spacing:.08em}
+.game-video{display:flex;flex-direction:column;min-height:365px;overflow:hidden}
+.game-video:before{display:none}
+.game-video:after{content:'GTAVI_GAMEPLAY.STREAM'}
 .game-video figcaption{position:static;display:flex;justify-content:space-between;gap:8px;padding:6px 3px 0;color:#d6d9ed}
 .game-video figcaption a{color:#ffe05c;text-decoration:none}.game-video figcaption a:hover{text-decoration:underline}
-.game-frame{display:block;flex:1;width:100%;min-height:335px;border:0;background:#000}
+.game-frame{display:block;flex:1;width:166%;max-width:none;min-height:335px;margin-left:-33%;border:0;background:#000}
 
 /* Tighter copy and small instrument panels keep the page feeling operated. */
 .kicker,.eyebrow{color:var(--gold);font-size:11px;letter-spacing:.08em}
@@ -220,7 +214,7 @@ main,.topbar,.foot{position:relative;z-index:1}
 @media(max-width:780px){
   .topin{height:60px}.mobile-nav{top:60px}.hero-grid,.field-grid{grid-template-columns:1fr}
   .hero{padding-top:16px}.hero-grid{gap:18px}.hero h1{font-size:clamp(38px,8vw,56px)}
-  .hero-art img{height:280px;min-height:0}.section{padding-top:12px}.section>.wrap,.subhero>.wrap,.hero-grid{padding:47px 16px 20px}
+  .hero-art img{height:280px;min-height:0}.game-frame{width:100%;margin-left:0}.section{padding-top:12px}.section>.wrap,.subhero>.wrap,.hero-grid{padding:47px 16px 20px}
   .section-head{display:block}.section-head p{max-width:100%;margin-top:10px}.field-screen{min-height:340px}
   .telemetry{grid-template-columns:1fr 1fr}.subhero{padding-top:16px}
   .brief-grid{grid-template-columns:1fr}.record-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -235,8 +229,7 @@ main,.topbar,.foot{position:relative;z-index:1}
   .mini-grid,.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.statusline span{width:50%;font-size:9px}
   .hero-grid:before,.section>.wrap:before,.subhero>.wrap:before{font-size:10px;letter-spacing:0}
   .hero-grid:after,.section>.wrap:after,.subhero>.wrap:after{font-size:11px;letter-spacing:0}
-  .game-video{min-height:240px}.video-launch,.video-launch img,.game-frame{min-height:220px}
-  .video-caption{font-size:8px}.video-play{width:56px;height:56px;font-size:21px}
+  .game-video{min-height:240px}.game-frame{min-height:220px}
   .blueprint-head{align-items:start}.blueprint-head b{font-size:13px}.blueprint-head .blueprint-state{font-size:8px}
   .signal-lines>div{grid-template-columns:110px 1fr;gap:5px}.signal-lines i{display:none}
   .loop-track div{flex-basis:42%}.record-top{font-size:9px}
