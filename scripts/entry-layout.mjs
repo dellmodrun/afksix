@@ -18,7 +18,7 @@ for (let i = 1; i < blocks.length; i += 2) {
   const zh = blocks[i];
   const en = blocks[i + 1];
   if (!/[\u3400-\u9fff]/.test(zh) || /[\u3400-\u9fff]/.test(en)) throw new Error(`Bad bilingual pair ${Math.ceil(i / 2)}`);
-  pairs.push(`<p class="story-en" lang="en">${inline(en)}</p>`);
+  pairs.push(`<p class="story-en" lang="en">${inline(en.toLowerCase())}</p>`);
 }
 const wantedStars = Array.from({ length: 6 }, (_, i) => `<span class="wanted-star" aria-hidden="true">★</span>`).join('');
 const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
