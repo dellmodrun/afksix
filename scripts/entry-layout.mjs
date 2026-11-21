@@ -114,8 +114,10 @@ h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;marg
 .social-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}.social-links a{display:inline-flex}.social-links img{height:28px;width:auto}
 .badge-wall{display:grid;grid-template-columns:repeat(3,88px);justify-content:center;gap:5px}.badge-wall a,.badge-wall img{display:block;width:88px;height:31px;max-width:100%}
 .side-foot{font:12px/1.5 Consolas,monospace;color:#8e858d;margin:23px 0 0}
+.entry-gifs{width:min(1290px,100%);min-height:180px;margin:0 auto;padding:0 clamp(20px,4vw,60px) 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.entry-gifs a{display:block;line-height:0;flex:none}.entry-gifs img{display:block;height:160px;width:auto;max-width:40vw;object-fit:contain;filter:drop-shadow(0 0 9px rgba(255,126,174,.22))}
+@media(min-width:1440px){.entry-gifs{position:fixed;inset:auto 12px 12px;width:auto;min-height:0;padding:0;pointer-events:none;z-index:2}.entry-gifs a{pointer-events:auto}.entry-gifs img{height:115px}}
 @media(max-width:880px){.entry-grid{grid-template-columns:1fr;gap:35px}.side{position:static;grid-row:1;width:min(100%,420px);margin:auto}.story{max-width:none}.story-en{max-width:none}}
-@media(max-width:420px){.entry-grid{padding:18px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.social-links img{height:24px}.badge-wall{gap:3px;grid-template-columns:repeat(4,72px)}.badge-wall a,.badge-wall img{width:72px;height:25px}.side-foot{margin-top:16px}.story-en{font-size:16px}}
+@media(max-width:420px){.entry-grid{padding:18px}.side{padding:17px 10px}.side-logo{width:150px;margin-bottom:9px}.side-name{font-size:21px;margin-bottom:15px}.side-rule{margin:17px 0 12px}.social-links img{height:24px}.badge-wall{gap:3px;grid-template-columns:repeat(4,72px)}.badge-wall a,.badge-wall img{width:72px;height:25px}.side-foot{margin-top:16px}.story-en{font-size:16px}.entry-gifs{min-height:112px}.entry-gifs img{height:100px}}
 </style></head><body>
 <main class="entry-grid"><article class="story" aria-labelledby="story-title"><div class="wanted-level" role="img" aria-label="Six wanted stars lighting up one by one">${wantedStars}</div>
 <div class="entry-ca" aria-label="afksix contract address"><span class="entry-ca-label">ca</span><span class="entry-ca-value" id="entry-ca-value" aria-live="polite">tba</span><button class="entry-ca-copy" id="entry-ca-copy" type="button" hidden>copy</button></div>
@@ -126,6 +128,7 @@ ${pairs.join('\n')}
 <div class="side-rule"></div><p class="side-label">Links</p><div class="social-links">${social}</div>
 <div class="side-rule"></div><p class="side-label">Badges</p><div class="badge-wall">${badges}</div>
 <p class="side-foot">© 2026 afksix</p></aside></main>
+<div class="entry-gifs" aria-label="GTA animations"><a href="https://tenor.com/zh-CN/view/keyvon-crawford-kilo-tray-ballas-gta-san-andreas-streetz-of-los-santos-gif-24558015" target="_blank" rel="noopener noreferrer" aria-label="View Kilo Tray GIF on Tenor"><img src="entry-gifs/ballas-transparent.gif" alt="" loading="lazy"></a><a href="https://tenor.com/zh-CN/view/cj-gta-gif-23381821" target="_blank" rel="noopener noreferrer" aria-label="View CJ GIF on Tenor"><img src="entry-gifs/cj-transparent.gif" alt="" loading="lazy"></a></div>
 ${rainbowScript}${caScript}</body></html>`;
 fs.writeFileSync(entryPath, html);
 fs.writeFileSync(path.join(site, 'story.html'), '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=./"><title>afksix story</title></head><body><a href="./">Read the afksix story</a></body></html>');

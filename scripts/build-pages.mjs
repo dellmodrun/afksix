@@ -14,6 +14,7 @@ const textExtensions = new Set(['.html', '.js', '.css', '.json', '.svg', '.webma
 fs.rmSync(output, { recursive: true, force: true });
 fs.cpSync(woodooSource, output, { recursive: true });
 fs.cpSync(blockmindSource, blockmindOutput, { recursive: true });
+fs.cpSync(path.join(root, 'entry-gifs'), path.join(output, 'entry-gifs'), { recursive: true });
 
 const entry = path.join(output, 'index.html');
 const woodooEntry = fs.readFileSync(entry, 'utf8');

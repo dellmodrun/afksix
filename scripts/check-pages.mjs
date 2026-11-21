@@ -15,8 +15,9 @@ if (!entry.includes('white-space:nowrap') || entry.includes('story-pair')) throw
 if (entry.includes('afksix / story') || !entry.includes('class="wanted-level"') || (entry.match(/class="wanted-star"/g) || []).length !== 6 || !entry.includes('wanted-6 7.2s linear infinite')) throw new Error('Six animated wanted stars are missing');
 if (!/class="wanted-level"[\s\S]*?<\/div>\s*<div class="entry-ca"[\s\S]*?<\/div>\s*<h1 id="story-title"/.test(entry) || !entry.includes('https://afksix-ca-feed.zaunmanx.chatgpt.site/ca') || !entry.includes('setInterval(refreshCa, 2000)') || !entry.includes('id="entry-ca-copy"')) throw new Error('Independent CA box or polling is missing from above the title');
 if (!entry.includes('https://x.com/woodcutleaf') || !entry.includes('https://github.com/woodcutleaf/Woodoo') || !entry.includes('badges/sideadd.gif')) throw new Error('Existing social links or badges changed');
+if (!entry.includes('entry-gifs/ballas-transparent.gif') || !entry.includes('entry-gifs/cj-transparent.gif') || !entry.includes('gif-24558015') || !entry.includes('gif-23381821')) throw new Error('Corner GTA animations are missing');
 if (entry.includes('Minecraft') || entry.includes('the block that wouldn')) throw new Error('Old Minecraft copy remains on the entry');
-for (const file of ['afksix.png', 'story.html', 'style.css', 'home/index.html', 'badges/badge_twitter.svg']) {
+for (const file of ['afksix.png', 'story.html', 'style.css', 'home/index.html', 'badges/badge_twitter.svg', 'entry-gifs/ballas-transparent.gif', 'entry-gifs/cj-transparent.gif']) {
   if (!fs.existsSync(path.join(site, file))) throw new Error(`Missing Woodoo frontend asset ${file}`);
 }
 const routes = ['', 'skills/', 'proof/', 'ledger/'];
