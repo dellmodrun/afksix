@@ -26,8 +26,8 @@ for (const badge of gtaBadges) if (!fs.existsSync(path.join(site, 'entry-gta-bad
 if (!entry.includes('entry-gifs/ballas-transparent.gif') || !entry.includes('entry-gifs/cj-transparent.gif') || !entry.includes('gif-24558015') || !entry.includes('gif-23381821')) throw new Error('Corner GTA animations are missing');
 if (!entry.includes('.entry-gifs{position:fixed') || !entry.includes('classList.toggle(\'is-reading\'')) throw new Error('Corner GIFs do not appear immediately or move aside during reading');
 if (entry.includes('Minecraft') || entry.includes('the block that wouldn')) throw new Error('Old Minecraft copy remains on the entry');
-for (const file of ['afksix.png', 'story.html', 'style.css', 'home/index.html', 'badges/badge_twitter.svg', 'entry-gifs/ballas-transparent.gif', 'entry-gifs/cj-transparent.gif', 'entry-buttons/readme-enter.svg', 'entry-buttons/readme-github.svg', 'entry-buttons/readme-x.svg', 'entry-buttons/readme-pump.svg']) {
-  if (!fs.existsSync(path.join(site, file))) throw new Error(`Missing Woodoo frontend asset ${file}`);
+for (const file of ['afksix.png', 'story.html', 'home/index.html', 'entry-gifs/ballas-transparent.gif', 'entry-gifs/cj-transparent.gif', 'entry-buttons/readme-enter.svg', 'entry-buttons/readme-github.svg', 'entry-buttons/readme-x.svg', 'entry-buttons/readme-pump.svg', 'blockmind/site.css', 'blockmind/assets/vice-city-postcard.jpg']) {
+  if (!fs.existsSync(path.join(site, file))) throw new Error(`Missing afksix site asset ${file}`);
 }
 if (fs.existsSync(path.join(site, 'entry-buttons', 'vice-city.jpg'))) throw new Error('Old realistic button image remains');
 const routes = ['', 'skills/', 'proof/', 'ledger/'];
@@ -35,18 +35,13 @@ for (const route of routes) {
   const file = path.join(site, 'blockmind', route, 'index.html');
   if (!fs.existsSync(file)) throw new Error(`Missing page ${route || '/'}`);
   const html = fs.readFileSync(file, 'utf8');
-  if (!html.includes('afksix') || !html.includes('/afksix/blockmind/site/rs.css')) throw new Error(`Broken page ${route || '/'}`);
-  if (!html.includes('<nav class="nav" aria-label="Main"><a href="/afksix/">Home</a>')) throw new Error(`Woodoo Home link missing in ${route || '/'}`);
-  if (!html.includes('<div class="sheet" id="sheet"><a href="/afksix/">Home')) throw new Error(`Mobile Home link missing in ${route || '/'}`);
-  if (!html.includes('/afksix/blockmind/site/nav-home.css')) throw new Error(`Mobile header stylesheet missing in ${route || '/'}`);
-  if (html.includes('href="/skills"') || html.includes('href="/proof"') || html.includes('href="/ledger"')) throw new Error(`Unprefixed navigation in ${route || '/'}`);
+  if (!html.includes('afksix') || !html.includes('/afksix/blockmind/site.css') || !html.includes('href="/afksix/">Story</a>') || !html.includes('class="mobile-nav"')) throw new Error(`Broken project page ${route || '/'}`);
+  if (!html.includes('https://x.com/afksixauto') || !html.includes('https://afksix-ca-feed.zaunmanx.chatgpt.site/ca') || !html.includes('data-ca')) throw new Error(`X or independent CA missing in ${route || '/'}`);
+  if (/>BlockMind<|\$BLOCKMIND|Minecraft|Mojang|watchblockmind|Opus 5\.5|Haiku 5\.5|hardcore|burns? \$AFKSIX/i.test(html)) throw new Error(`Old project narrative remains in ${route || '/'}`);
 }
-const blockmindHome = fs.readFileSync(path.join(site, 'blockmind', 'index.html'), 'utf8');
-if (!blockmindHome.includes('id="watch-guide"') || !blockmindHome.includes('id="faq"') || !blockmindHome.includes('/afksix/blockmind/site/observer.css')) throw new Error('BlockMind guide or FAQ is missing');
-if (!fs.existsSync(path.join(site, 'blockmind', 'site', 'observer.css'))) throw new Error('BlockMind guide styles are missing');
-if (!fs.existsSync(path.join(site, 'blockmind', 'site', 'nav-home.css'))) throw new Error('BlockMind header styles are missing');
-for (const file of ['site/home.js', 'site/skills.js', 'site/proof.js', 'site/ledger.js', 'api/state', 'api/brand', 'rec/site/plays.mp4', 'art/reel/test-life4.mp4']) {
-  if (!fs.existsSync(path.join(site, 'blockmind', file))) throw new Error(`Missing asset ${file}`);
-}
+const projectHome = fs.readFileSync(path.join(site, 'blockmind', 'index.html'), 'utf8');
+for (const id of ['live', 'watch-guide', 'how', 'lives', 'learned', 'ladder', 'skills', 'mind', 'bill', 'faq']) if (!projectHome.includes(`id="${id}"`)) throw new Error(`Missing project section ${id}`);
+if (!projectHome.includes('When the mission ends') || !projectHome.includes('No public sessions yet.') || !projectHome.includes('first public run') || !projectHome.includes('GTA VI')) throw new Error('GTA VI narrative or honest run status missing');
+if (fs.existsSync(path.join(site, 'blockmind', 'api')) || fs.existsSync(path.join(site, 'blockmind', 'site', 'home.js'))) throw new Error('Old Minecraft runtime was deployed');
 if (!fs.existsSync(path.join(site, '.nojekyll'))) throw new Error('Pages bypass file missing');
-console.log('PASS: English afksix entry story, existing links, project pages, and media assets');
+console.log('PASS: English entry, ten GTA VI project sections, three subpages, links, CA feed, and assets');

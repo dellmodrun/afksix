@@ -1,9 +1,11 @@
-# GitHub Pages copy
+# GitHub Pages layout
 
-This repository copies the public BlockMind frontend snapshot and the Woodoo frontend into the independent `afksix` repository. The desktop source folders are not part of this Git history.
+- `/afksix/`: story entry with the Enter link, social links, GTA badges, and independent CA feed.
+- `/afksix/blockmind/`: afksix project page with ten sections.
+- `/afksix/blockmind/skills/`: capabilities.
+- `/afksix/blockmind/proof/`: evidence and run archive.
+- `/afksix/blockmind/ledger/`: compute ledger.
 
-`npm run build:pages` places the Woodoo entry at `_site/` and BlockMind at `_site/blockmind/`, with its assets and routes prefixed by `/afksix/blockmind/`. The Woodoo Enter button opens BlockMind. `npm run check:pages` checks the entry, the four BlockMind pages, and key assets. Pushing `main` deploys the site at <https://dellmodrun.github.io/afksix/>.
+`/afksix/home/` redirects to the project page. `/afksix/story.html` redirects to the story entry. The `blockmind` path is retained so existing links continue to work; no old project branding or narrative is published there.
 
-The site is a static snapshot. Recorded videos, images, public API responses, and the four pages are included; live game, WebSocket, and backend changes from the original site are not reproduced by GitHub Pages.
-
-The BlockMind home page includes a watch guide and FAQ adapted from Woodoo's visitor guide. They explain the existing live panel, life cycle and proof links without adding chat, guestbook or map features that require Woodoo's own backend.
+Run `npm run build:pages` to generate `_site/`, then `npm run check:pages` to verify routes, assets, section anchors, CA integration, and stale copy. The repository's Pages workflow deploys `_site/` from `main`.

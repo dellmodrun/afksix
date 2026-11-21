@@ -1,0 +1,1 @@
+`vice-city-postcard.jpg` is the official **Vice City Postcard** landscape artwork from [Rockstar Games' GTA VI artwork and wallpapers page](https://www.rockstargames.com/VI/media/artwork-wallpapers). It is used as credited promotional artwork on the afksix concept frontend.
