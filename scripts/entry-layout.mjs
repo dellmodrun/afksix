@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const site = path.join(root, '_site');
 const entryPath = path.join(site, 'index.html');
-const current = fs.readFileSync(entryPath, 'utf8');
 const source = fs.readFileSync(path.join(root, 'content', 'entry-story.txt'), 'utf8');
 const blocks = source.replaceAll('\r\n', '\n').trim().split(/\n\s*\n/).map(block => block.trim());
 if (blocks.length !== 21) throw new Error(`Expected title and 10 bilingual paragraph pairs, got ${blocks.length} blocks`);
@@ -48,10 +47,7 @@ const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
   return `.wanted-star:nth-child(${i + 1}){animation:wanted-${i + 1} 7.2s linear infinite}@keyframes wanted-${i + 1}{${before} ${on}%,${on + 2}%,${on + 4}%,84%{color:#ffd443;text-shadow:0 0 5px #ffd443,0 0 11px #ffb600} ${on + 1}%,${on + 3}%{color:#b88a23;text-shadow:none} 91%,100%{color:#4b4020;text-shadow:none}}`;
 }).join('');
 
-const social = current.match(/<p style="line-height:1\.3;">([\s\S]*?)<\/p>/)?.[1]?.replaceAll('&nbsp;', '');
-if (!social) throw new Error('Existing social links are missing');
-const socialUrls = [...social.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);
-if (socialUrls.length !== 3) throw new Error(`Expected three original social links, got ${socialUrls.length}`);
+const socialUrls = ['https://x.com/afksixauto', 'https://github.com/', 'https://pump.fun/'];
 const gtaBadges = JSON.parse(fs.readFileSync(path.join(root, 'entry-gta-badges', 'manifest.json'), 'utf8'));
 if (gtaBadges.length !== 18 || gtaBadges.some(item => !fs.existsSync(path.join(root, 'entry-gta-badges', item.src)))) throw new Error('Expected 18 GTA affiliate badges');
 const badges = gtaBadges.map(item => `<a href="${escape(item.href)}" target="_blank" rel="noopener noreferrer" aria-label="${escape(item.alt)}"><img src="entry-gta-badges/${escape(item.src)}" alt="${escape(item.alt)}" loading="lazy"></a>`).join('');
