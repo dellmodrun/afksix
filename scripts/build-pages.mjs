@@ -31,9 +31,9 @@ fs.copyFileSync(path.join(root, 'project-v2', 'retro.css'), path.join(project, '
 await import('./entry-layout.mjs');
 await import('./project-layout.mjs');
 
-const redirect = destination => `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=${destination}"><link rel="canonical" href="https://dellmodrun.github.io${destination}"><title>afksix</title><p><a href="${destination}">Continue to afksix</a></p></html>`;
+const redirect = destination => `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=${destination}"><link rel="canonical" href="https://afksix.run${destination}"><title>afksix</title><p><a href="${destination}">Continue to afksix</a></p></html>`;
 fs.mkdirSync(path.join(output, 'home'));
-fs.writeFileSync(path.join(output, 'home', 'index.html'), redirect('/afksix/blockmind/'));
-fs.writeFileSync(path.join(output, 'story.html'), redirect('/afksix/'));
+fs.writeFileSync(path.join(output, 'home', 'index.html'), redirect('/blockmind/'));
+fs.writeFileSync(path.join(output, 'story.html'), redirect('/'));
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
-console.log('Prepared afksix story and GTA VI project pages at /afksix/');
+console.log('Prepared afksix story and GTA VI project pages for afksix.run');

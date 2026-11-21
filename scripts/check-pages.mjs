@@ -36,7 +36,7 @@ for (const route of routes) {
   const file = path.join(site, 'blockmind', route, 'index.html');
   if (!fs.existsSync(file)) throw new Error(`Missing page ${route || '/'}`);
   const html = fs.readFileSync(file, 'utf8');
-  if (!html.includes('afksix') || !html.includes('/afksix/blockmind/site.css') || !html.includes('/afksix/blockmind/retro.css') || !html.includes('href="/afksix/">Story</a>') || !html.includes('class="mobile-nav"')) throw new Error(`Broken project page ${route || '/'}`);
+  if (!html.includes('afksix') || !html.includes('/blockmind/site.css') || !html.includes('/blockmind/retro.css') || !html.includes('href="/">Story</a>') || !html.includes('class="mobile-nav"')) throw new Error(`Broken project page ${route || '/'}`);
   if (!html.includes('https://x.com/afksixauto') || !html.includes('https://afksix-ca-feed.zaunmanx.chatgpt.site/ca') || !html.includes('data-ca')) throw new Error(`X or independent CA missing in ${route || '/'}`);
   if (/>BlockMind<|\$BLOCKMIND|Minecraft|Mojang|watchblockmind|Opus 5\.5|Haiku 5\.5|hardcore|burns? \$AFKSIX/i.test(html)) throw new Error(`Old project narrative remains in ${route || '/'}`);
 }
@@ -44,7 +44,7 @@ const projectHome = fs.readFileSync(path.join(site, 'blockmind', 'index.html'), 
 for (const id of ['brief', 'live', 'watch-guide', 'how', 'lives', 'learned', 'ladder', 'skills', 'mind', 'bill', 'docs', 'token', 'faq']) if (!projectHome.includes(`id="${id}"`)) throw new Error(`Missing project section ${id}`);
 if (!projectHome.includes('When the mission ends') || !projectHome.includes('No public sessions yet.') || !projectHome.includes('first public run') || !projectHome.includes('GTA VI')) throw new Error('GTA VI narrative or honest run status missing');
 if (!projectHome.includes('id="brief"') || !projectHome.includes('class="data-blueprint"') || !projectHome.includes('class="loop-diagram"') || !projectHome.includes('class="record-frame"') || projectHome.includes('<table')) throw new Error('Project explanation or honest data displays missing');
-if (!projectHome.includes('<figure class="hero-art"><img src="/afksix/blockmind/assets/vice-city-postcard.jpg"') || projectHome.includes('<video') || projectHome.includes('<iframe') || !projectHome.includes('not measurements')) throw new Error('Static GTA VI hero or data disclosure missing');
+if (!projectHome.includes('<figure class="hero-art"><img src="/blockmind/assets/vice-city-postcard.jpg"') || projectHome.includes('<video') || projectHome.includes('<iframe') || !projectHome.includes('not measurements')) throw new Error('Static GTA VI hero or data disclosure missing');
 if (!(projectHome.indexOf('id="top"') < projectHome.indexOf('id="live"') && projectHome.indexOf('id="live"') < projectHome.indexOf('id="brief"'))) throw new Error('Field feed must immediately follow the hero');
 if (!projectHome.includes('href="docs/"') || !projectHome.includes('$AFKSIX') || (projectHome.match(/data-ca title="tba"/g) || []).length < 2 || !projectHome.includes('data-token-status')) throw new Error('Project documentation or independent official token panel missing');
 const docs = fs.readFileSync(path.join(site, 'blockmind', 'docs', 'index.html'), 'utf8');

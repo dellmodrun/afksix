@@ -4,7 +4,7 @@
 
 **Project status:** the simulation, local bridge, and generic Windows desktop capture/input adapter run today. That desktop adapter has been tested for frame capture and simulated input, but it has **not** been validated against GTA VI. A verified public game session is **not connected**. No screenshot, play session, or agent decision on the website is presented as real GTA VI telemetry.
 
-[Run the browser demo](https://dellmodrun.github.io/afksix/source/#tab-demo) · [Open the project page](https://dellmodrun.github.io/afksix/blockmind/) · [Read the bridge contract](docs/PROTOCOL.md)
+[Run the browser demo](https://afksix.run/source/#tab-demo) · [Open the project page](https://afksix.run/blockmind/) · [Read the bridge contract](docs/PROTOCOL.md)
 
 ## Contents
 
