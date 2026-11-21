@@ -52,9 +52,9 @@ if (!docs.includes('Read the run.') || !docs.includes('How to check the CA.') ||
 if (fs.existsSync(path.join(site, 'blockmind', 'api')) || fs.existsSync(path.join(site, 'blockmind', 'site', 'home.js'))) throw new Error('Old Minecraft runtime was deployed');
 if (!fs.existsSync(path.join(site, '.nojekyll'))) throw new Error('Pages bypass file missing');
 const sourcePage = fs.readFileSync(path.join(site, 'source', 'index.html'), 'utf8');
-if (!sourcePage.includes('id="file-list"') || !sourcePage.includes('id="city-map"') || !sourcePage.includes('GTA VI adapter / pending') || !sourcePage.includes('source.js') || !sourcePage.includes('afksix-core.zip')) throw new Error('On-site source repository or simulation demo missing');
+if (!sourcePage.includes('id="file-list"') || !sourcePage.includes('id="city-map"') || !sourcePage.includes('GTA VI adapter / pending') || !sourcePage.includes('source.js') || !sourcePage.includes('afksix-core.zip') || !sourcePage.includes('id="architecture"') || !sourcePage.includes('id="command-reference"') || !sourcePage.includes('id="security-and-operational-boundaries"')) throw new Error('On-site source repository, full README, or simulation demo missing');
 if (!fs.existsSync(path.join(site, 'source', 'afksix-core.zip'))) throw new Error('Source download archive missing');
-for (const file of ['README.md', 'package.json', 'LICENSE', 'src/simulator.mjs', 'src/cli.mjs', 'test/simulator.test.mjs']) {
+for (const file of ['README.md', 'package.json', 'LICENSE', 'docs/PROTOCOL.md', 'docs/OPERATIONS.md', 'src/simulator.mjs', 'src/bridge.mjs', 'src/providers.mjs', 'src/runtime.mjs', 'src/cli.mjs', 'examples/mock-bridge.mjs', 'test/simulator.test.mjs', 'test/runtime.test.mjs', 'adapters/requirements.txt', 'adapters/windows_desktop_bridge.py', 'adapters/test_windows_bridge.py']) {
   if (!fs.existsSync(path.join(site, 'source', 'files', file))) throw new Error(`Missing source repository file ${file}`);
 }
 console.log('PASS: English entry, thirteen GTA VI project sections, four subpages, static hero, next-section field feed, token feed, links, and assets');

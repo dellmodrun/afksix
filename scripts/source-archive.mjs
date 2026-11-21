@@ -2,7 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const files = ['README.md', 'package.json', 'LICENSE', 'src/simulator.mjs', 'src/cli.mjs', 'test/simulator.test.mjs'];
+const files = [
+  'README.md', 'package.json', 'LICENSE',
+  'docs/PROTOCOL.md', 'docs/OPERATIONS.md',
+  'src/simulator.mjs', 'src/bridge.mjs', 'src/providers.mjs', 'src/runtime.mjs', 'src/cli.mjs',
+  'examples/mock-bridge.mjs', 'test/simulator.test.mjs', 'test/runtime.test.mjs',
+  'adapters/requirements.txt', 'adapters/windows_desktop_bridge.py', 'adapters/test_windows_bridge.py',
+];
 const repository = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const root = path.join(repository, 'afksix-core');
 const output = path.join(repository, '_site', 'source', 'afksix-core.zip');

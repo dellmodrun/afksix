@@ -6,6 +6,7 @@
   "description": "Runnable autonomous exploration baseline in a simulated city",
   "scripts": {
     "demo": "node src/cli.mjs demo 60 6",
+    "smoke": "node src/cli.mjs smoke 30",
     "test": "node --test test/*.test.mjs"
   },
   "engines": { "node": ">=20" }

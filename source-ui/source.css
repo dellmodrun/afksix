@@ -2,3 +2,10 @@
 .box,.file-layout,.file-layout>*,.pane,.code-scroll{min-width:0}
 @media(max-width:880px){.file-layout,.demo-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:560px){.topnav a:nth-child(2){display:none}.topnav a:first-child{display:inline-flex}.top .wrap{gap:6px}.brand{font-size:16px}.hero p,.notice{overflow-wrap:anywhere}}
+.readme{font-family:ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',monospace;line-height:1.78}
+.readme h1{font-size:clamp(30px,4vw,48px);letter-spacing:-.07em;color:var(--mint);margin:20px 0 8px}
+.readme h2{scroll-margin-top:80px}.readme h3{scroll-margin-top:80px}
+.readme a{color:#9decc5;text-decoration:underline;text-underline-offset:3px}.readme a:hover{color:#d7ffe7}
+.readme strong{color:#f2f5e9}.readme blockquote{border-left:3px solid var(--gold);padding:5px 14px;background:#252316;color:#eee2b8}
+.readme hr{border:0;border-top:1px solid var(--line);margin:25px 0}
+.readme-table{overflow:auto;border:1px solid var(--line);margin:15px 0}.readme table{border-collapse:collapse;min-width:650px;width:100%;font-size:11px}.readme th,.readme td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}.readme th{background:#1c2a2b;color:var(--mint);font-size:10px;text-transform:uppercase;letter-spacing:.07em}.readme tr:nth-child(even) td{background:#162023}

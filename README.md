@@ -4,7 +4,7 @@ The published site is an English GTA VI AI agent concept frontend. `/afksix/` is
 
 Public GTA VI gameplay and verified telemetry are not connected. The frontend labels these areas as pending. The contract address reads an independent CA feed every two seconds, so changing the CA does not require a full GitHub Pages build.
 
-The story entry's GitHub-style badge opens the [on-site source repository](https://dellmodrun.github.io/afksix/source/). It publishes the runnable [`afksix-core`](afksix-core/README.md) with a browser simulation, CLI and tests. The core is a deterministic autonomous exploration baseline in a simulated city; GTA VI capture, input and model integration are not connected.
+The story entry's GitHub-style badge opens the [on-site source repository](https://dellmodrun.github.io/afksix/source/). It publishes the runnable [`afksix-core`](afksix-core/README.md): city simulation, local HTTP bridge, agent runner, optional vision provider, Windows desktop capture/input adapter, JSONL traces, replay, and tests. The simulation and bridge have been verified locally; the desktop adapter captured a real desktop frame and its input behavior passed a fake-window test. GTA VI control and a public game run remain unverified and disconnected.
 
 ## Build and check
 

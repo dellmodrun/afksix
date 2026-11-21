@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderReadme } from './readme-html.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const output = path.join(root, '_site');
@@ -14,8 +15,15 @@ for (const directory of ['entry-gifs', 'entry-buttons', 'entry-gta-badges']) {
 }
 fs.cpSync(path.join(root, 'project-v2', 'assets'), path.join(project, 'assets'), { recursive: true });
 fs.cpSync(path.join(root, 'source-ui'), path.join(output, 'source'), { recursive: true });
-fs.cpSync(path.join(root, 'afksix-core'), path.join(output, 'source', 'files'), { recursive: true });
+fs.cpSync(path.join(root, 'afksix-core'), path.join(output, 'source', 'files'), {
+  recursive: true, filter: source => !source.includes('__pycache__') && !source.endsWith('.pyc'),
+});
 await import('./source-archive.mjs');
+const sourcePage = path.join(output, 'source', 'index.html');
+const readme = fs.readFileSync(path.join(root, 'afksix-core', 'README.md'), 'utf8');
+const template = fs.readFileSync(sourcePage, 'utf8');
+if (!/<article class="box readme">[\s\S]*?<\/article>/.test(template)) throw new Error('Source README slot missing');
+fs.writeFileSync(sourcePage, template.replace(/<article class="box readme">[\s\S]*?<\/article>/, renderReadme(readme)));
 fs.copyFileSync(path.join(root, 'brand', 'logo.png'), path.join(output, 'afksix.png'));
 fs.copyFileSync(path.join(root, 'project-v2', 'site.css'), path.join(project, 'site.css'));
 fs.copyFileSync(path.join(root, 'project-v2', 'retro.css'), path.join(project, 'retro.css'));

@@ -1,3 +1,5 @@
 _site/
 node_modules/
 qa-*.png
+__pycache__/
+*.pyc

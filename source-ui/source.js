@@ -1,11 +1,21 @@
 import { createRun, step, WIDTH, HEIGHT, LANDMARKS, isRoad } from './files/src/simulator.mjs';
 
 const files = [
-  ['README.md', 'Overview and quick start'],
+  ['README.md', 'Full guide and project status'],
   ['package.json', 'Commands and runtime'],
-  ['src/simulator.mjs', 'Exploration engine'],
-  ['src/cli.mjs', 'Command line runner'],
-  ['test/simulator.test.mjs', 'Repeatable checks'],
+  ['docs/PROTOCOL.md', 'Local bridge contract'],
+  ['docs/OPERATIONS.md', 'Run and evidence operations'],
+  ['src/simulator.mjs', 'City and route planning'],
+  ['src/bridge.mjs', 'Local HTTP transport'],
+  ['src/providers.mjs', 'Simulation and vision decisions'],
+  ['src/runtime.mjs', 'Agent loop and trace'],
+  ['src/cli.mjs', 'Command line interface'],
+  ['examples/mock-bridge.mjs', 'Working HTTP bridge example'],
+  ['adapters/requirements.txt', 'Windows bridge dependency'],
+  ['adapters/windows_desktop_bridge.py', 'Windows capture and input bridge'],
+  ['adapters/test_windows_bridge.py', 'Windows bridge verification'],
+  ['test/simulator.test.mjs', 'Planner verification'],
+  ['test/runtime.test.mjs', 'Bridge and provider checks'],
   ['LICENSE', 'MIT license'],
 ];
 const $ = selector => document.querySelector(selector);
@@ -54,13 +64,13 @@ $('#download-file').addEventListener('click', () => {
 openFile('README.md');
 
 const tabs = [...document.querySelectorAll('[role=tab]')];
-function showTab(name) {
+function showTab(name, updateHash = true) {
   for (const tab of tabs) tab.setAttribute('aria-selected', String(tab.dataset.tab === name));
   for (const pane of document.querySelectorAll('[role=tabpanel]')) pane.hidden = pane.id !== `pane-${name}`;
-  history.replaceState(null, '', `#tab-${name}`);
+  if (updateHash) history.replaceState(null, '', `#tab-${name}`);
 }
 for (const tab of tabs) tab.addEventListener('click', () => showTab(tab.dataset.tab));
-showTab(location.hash === '#tab-demo' ? 'demo' : 'code');
+showTab(location.hash === '#tab-demo' ? 'demo' : 'code', !location.hash || location.hash.startsWith('#tab-'));
 
 let run = createRun(6);
 let timer = null;
