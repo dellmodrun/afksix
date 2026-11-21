@@ -13,13 +13,33 @@ if (blocks.length !== 21) throw new Error(`Expected title and 10 bilingual parag
 const title = blocks[0].split('\n')[0].trim();
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const inline = value => escape(value).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+const highlights = [
+  'drive straight into a wall',
+  'decision-making and control',
+  'an unscripted day in gta vi',
+  'what does it do when the mission is over?',
+  'deciding for itself where to go next',
+  "can yesterday's experience change today's decisions?",
+];
+let highlightHits = 0;
+const renderParagraph = value => {
+  let rendered = inline(value.toLowerCase());
+  for (const phrase of highlights) {
+    if (rendered.includes(phrase)) {
+      rendered = rendered.replace(phrase, `<mark class="miami-highlight">${phrase}</mark>`);
+      highlightHits++;
+    }
+  }
+  return rendered;
+};
 const pairs = [];
 for (let i = 1; i < blocks.length; i += 2) {
   const zh = blocks[i];
   const en = blocks[i + 1];
   if (!/[\u3400-\u9fff]/.test(zh) || /[\u3400-\u9fff]/.test(en)) throw new Error(`Bad bilingual pair ${Math.ceil(i / 2)}`);
-  pairs.push(`<p class="story-en" lang="en">${inline(en.toLowerCase())}</p>`);
+  pairs.push(`<p class="story-en" lang="en">${renderParagraph(en)}</p>`);
 }
+if (highlightHits !== highlights.length) throw new Error(`Expected ${highlights.length} article highlights, found ${highlightHits}`);
 const wantedStars = Array.from({ length: 6 }, (_, i) => `<span class="wanted-star" aria-hidden="true">★</span>`).join('');
 const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
   const on = i * 11;
@@ -44,7 +64,7 @@ ${wantedAnimation}
 @media(prefers-reduced-motion:reduce){.wanted-star{animation:none!important;color:#ffd443!important;text-shadow:none!important}}
 h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;margin:0 0 30px;white-space:nowrap}
 .story-en{font-size:17px;line-height:1.85;color:#f2ebef;margin:0 0 1.15em;max-width:68ch}
-.story strong{color:#ff9bd0;font-weight:700}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
+.story strong,.miami-highlight{font-weight:700;background:linear-gradient(100deg,#ffe087 0%,#ff9a69 28%,#ff80b8 59%,#83e7dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.miami-highlight{font-style:normal}@media(forced-colors:active){.story strong,.miami-highlight{background:none;color:CanvasText}}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
 .side-logo{display:block;width:min(220px,100%);height:auto;margin:0 auto 18px}.side-name{font:700 26px/1 Arial,sans-serif;letter-spacing:-.04em;margin:0 0 25px}
 .enterbtn{display:inline-block;font:700 15px/1 "MS Sans Serif",Tahoma,Verdana,sans-serif;letter-spacing:1px;color:#000;text-decoration:none;background:#c0c0c0;padding:11px 32px;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;box-shadow:2px 2px 0 #000}
 .enterbtn:active{border-color:#808080 #fff #fff #808080;box-shadow:none;transform:translate(2px,2px)}

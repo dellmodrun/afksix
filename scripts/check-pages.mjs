@@ -10,6 +10,7 @@ if (!entry.includes('when i put the controller down') || !entry.includes("for af
 for (const paragraph of entry.matchAll(/<p class="story-en" lang="en">([\s\S]*?)<\/p>/g)) {
   if (/[A-Z]/.test(paragraph[1])) throw new Error('Entry article is not fully lowercase');
 }
+if ((entry.match(/class="miami-highlight"/g) || []).length !== 6 || !entry.includes('linear-gradient(100deg,#ffe087') || !entry.includes('deciding for itself where to go next</mark>')) throw new Error('Miami gradient article highlights are missing');
 if (!entry.includes('white-space:nowrap') || entry.includes('story-pair')) throw new Error('Entry title or article layout is wrong');
 if (entry.includes('afksix / story') || !entry.includes('class="wanted-level"') || (entry.match(/class="wanted-star"/g) || []).length !== 6 || !entry.includes('wanted-6 7.2s linear infinite')) throw new Error('Six animated wanted stars are missing');
 if (!entry.includes('https://x.com/woodcutleaf') || !entry.includes('https://github.com/woodcutleaf/Woodoo') || !entry.includes('badges/sideadd.gif')) throw new Error('Existing social links or badges changed');
