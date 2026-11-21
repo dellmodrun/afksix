@@ -54,7 +54,7 @@ const rainbowScript = current.match(/<script>[\s\S]*?<\/script>/)?.[0];
 if (!social || !badges || !rainbowScript) throw new Error('Existing social links, badges, or Enter animation are missing');
 const caScript = `<script>
 (() => {
-  const endpoint = 'https://raw.githubusercontent.com/dellmodrun/afksix/ca-live/ca.json';
+  const endpoint = 'https://afksix-ca-feed.zaunmanx.chatgpt.site/ca';
   const value = document.getElementById('entry-ca-value');
   const copy = document.getElementById('entry-ca-copy');
   let activeCa = '';
