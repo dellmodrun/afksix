@@ -23,8 +23,8 @@ for (let i = 1; i < blocks.length; i += 2) {
 const wantedStars = Array.from({ length: 6 }, (_, i) => `<span class="wanted-star" aria-hidden="true">★</span>`).join('');
 const wantedAnimation = Array.from({ length: 6 }, (_, i) => {
   const on = i * 11;
-  const before = i ? `0%,${on - 1}%{color:#343039;text-shadow:none}` : '';
-  return `.wanted-star:nth-child(${i + 1}){animation:wanted-${i + 1} 7.2s linear infinite}@keyframes wanted-${i + 1}{${before} ${on}%,${on + 2}%,${on + 4}%,84%{color:#f9f9ff;text-shadow:0 0 5px #fff,0 0 11px #f5cce8} ${on + 1}%,${on + 3}%{color:#6a6270;text-shadow:none} 91%,100%{color:#343039;text-shadow:none}}`;
+  const before = i ? `0%,${on - 1}%{color:#4b4020;text-shadow:none}` : '';
+  return `.wanted-star:nth-child(${i + 1}){animation:wanted-${i + 1} 7.2s linear infinite}@keyframes wanted-${i + 1}{${before} ${on}%,${on + 2}%,${on + 4}%,84%{color:#ffd443;text-shadow:0 0 5px #ffd443,0 0 11px #ffb600} ${on + 1}%,${on + 3}%{color:#b88a23;text-shadow:none} 91%,100%{color:#4b4020;text-shadow:none}}`;
 }).join('');
 
 const social = current.match(/<p style="line-height:1\.3;">([\s\S]*?)<\/p>/)?.[1]?.replaceAll('&nbsp;', '');
@@ -39,9 +39,9 @@ const html = `<!doctype html>
 :root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:#000;color:#f6f3f6;font-family:Arial,"Microsoft YaHei",sans-serif}
 .entry-grid{width:min(1290px,100%);margin:auto;padding:clamp(26px,4vw,64px);display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:clamp(40px,5vw,100px);align-items:start}
-.story{max-width:720px;min-width:0}.wanted-level{display:flex;gap:5px;align-items:center;margin:0 0 20px;height:20px;font:20px/1 Arial,sans-serif;letter-spacing:0}.wanted-star{color:#343039}
+.story{max-width:720px;min-width:0}.wanted-level{display:flex;gap:5px;align-items:center;margin:0 0 20px;height:20px;font:20px/1 Arial,sans-serif;letter-spacing:0}.wanted-star{color:#4b4020}
 ${wantedAnimation}
-@media(prefers-reduced-motion:reduce){.wanted-star{animation:none!important;color:#f9f9ff!important;text-shadow:none!important}}
+@media(prefers-reduced-motion:reduce){.wanted-star{animation:none!important;color:#ffd443!important;text-shadow:none!important}}
 h1{font-size:clamp(19px,3.2vw,48px);line-height:1.15;letter-spacing:-.055em;margin:0 0 30px;white-space:nowrap}
 .story-en{font-size:17px;line-height:1.85;color:#f2ebef;margin:0 0 1.15em;max-width:68ch}
 .story strong{color:#ff9bd0;font-weight:700}.side{position:sticky;top:28px;text-align:center;border:1px solid #242024;background:#080708;padding:28px 22px 24px}
