@@ -26,7 +26,7 @@ for (const badge of gtaBadges) if (!fs.existsSync(path.join(site, 'entry-gta-bad
 if (!entry.includes('entry-gifs/ballas-transparent.gif') || !entry.includes('entry-gifs/cj-transparent.gif') || !entry.includes('gif-24558015') || !entry.includes('gif-23381821')) throw new Error('Corner GTA animations are missing');
 if (!entry.includes('.entry-gifs{position:fixed') || !entry.includes('classList.toggle(\'is-reading\'')) throw new Error('Corner GIFs do not appear immediately or move aside during reading');
 if (entry.includes('Minecraft') || entry.includes('the block that wouldn')) throw new Error('Old Minecraft copy remains on the entry');
-for (const file of ['afksix.png', 'story.html', 'home/index.html', 'entry-gifs/ballas-transparent.gif', 'entry-gifs/cj-transparent.gif', 'entry-buttons/readme-enter.svg', 'entry-buttons/readme-github.svg', 'entry-buttons/readme-x.svg', 'entry-buttons/readme-pump.svg', 'blockmind/site.css', 'blockmind/assets/vice-city-postcard.jpg']) {
+for (const file of ['afksix.png', 'story.html', 'home/index.html', 'entry-gifs/ballas-transparent.gif', 'entry-gifs/cj-transparent.gif', 'entry-buttons/readme-enter.svg', 'entry-buttons/readme-github.svg', 'entry-buttons/readme-x.svg', 'entry-buttons/readme-pump.svg', 'blockmind/site.css', 'blockmind/retro.css', 'blockmind/assets/vice-city-postcard.jpg']) {
   if (!fs.existsSync(path.join(site, file))) throw new Error(`Missing afksix site asset ${file}`);
 }
 if (fs.existsSync(path.join(site, 'entry-buttons', 'vice-city.jpg'))) throw new Error('Old realistic button image remains');
@@ -35,7 +35,7 @@ for (const route of routes) {
   const file = path.join(site, 'blockmind', route, 'index.html');
   if (!fs.existsSync(file)) throw new Error(`Missing page ${route || '/'}`);
   const html = fs.readFileSync(file, 'utf8');
-  if (!html.includes('afksix') || !html.includes('/afksix/blockmind/site.css') || !html.includes('href="/afksix/">Story</a>') || !html.includes('class="mobile-nav"')) throw new Error(`Broken project page ${route || '/'}`);
+  if (!html.includes('afksix') || !html.includes('/afksix/blockmind/site.css') || !html.includes('/afksix/blockmind/retro.css') || !html.includes('href="/afksix/">Story</a>') || !html.includes('class="mobile-nav"')) throw new Error(`Broken project page ${route || '/'}`);
   if (!html.includes('https://x.com/afksixauto') || !html.includes('https://afksix-ca-feed.zaunmanx.chatgpt.site/ca') || !html.includes('data-ca')) throw new Error(`X or independent CA missing in ${route || '/'}`);
   if (/>BlockMind<|\$BLOCKMIND|Minecraft|Mojang|watchblockmind|Opus 5\.5|Haiku 5\.5|hardcore|burns? \$AFKSIX/i.test(html)) throw new Error(`Old project narrative remains in ${route || '/'}`);
 }
